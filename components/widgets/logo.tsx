@@ -2,5 +2,5 @@ import Link from 'next/link'
 import React from 'react'
 
 export default function Logo() {
-  return <Link href="/">DevUp</Link>
+  return <Link href="/">DEVUP</Link>
 }
