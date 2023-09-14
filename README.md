@@ -3,8 +3,12 @@
 ## Pre-requise
 
 - nodeJS V20
-- Pnpm
+- PNPM
 
 ## Packages
 
-- npx shadcn-ui@latest add button
+- NextJS
+- Prisma
+- Shadcn
+- TailwindCSS
+- Jest

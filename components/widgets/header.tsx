@@ -1,16 +1,18 @@
 'use client'
 
 import React, { useState } from 'react'
+import { HamburgerMenuIcon, Cross1Icon } from '@radix-ui/react-icons'
 import Logo from './logo'
 import NavLinks from './nav-links'
 import NavButtons from './nav-buttons'
 import { Button } from '../ui/button'
+import NavMobile from './nav-mobile'
 
 export default function Header() {
   const [showNavbar, setShowNavbar] = useState<boolean>(false)
   return (
-    <header className="bg-gray-200">
-      <div className="flex items-center justify-between container h-16 relative">
+    <header className="fixed inset-0 top-0 z-20 border-b border-border bg-white h-16">
+      <nav className="flex items-center justify-between container h-16 relative">
         <Logo />
         <NavLinks />
         <NavButtons />
@@ -20,14 +22,18 @@ export default function Header() {
           className="md:hidden"
           onClick={() => setShowNavbar(!showNavbar)}
         >
-          {showNavbar ? <div>x</div> : <div>=</div>}
+          {showNavbar ? (
+            <div>
+              <Cross1Icon />
+            </div>
+          ) : (
+            <div>
+              <HamburgerMenuIcon />
+            </div>
+          )}
         </Button>
-        {showNavbar ? (
-          <div className="absolute top-20 left-0 w-full bg-gray-100 container h-64">
-            navbar mobile
-          </div>
-        ) : null}
-      </div>
+        {showNavbar ? <NavMobile /> : null}
+      </nav>
     </header>
   )
 }
