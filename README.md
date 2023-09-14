@@ -12,3 +12,4 @@
 - Shadcn
 - TailwindCSS
 - Jest
+- lucide-react

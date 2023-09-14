@@ -1,10 +1,20 @@
 import Link from 'next/link'
-import { TNavLinks } from '@/lib/types'
+import type { TNavLinks } from '@/lib/types'
 
-export default function LinkNav({ href, label }: TNavLinks) {
+type TLinkNav = TNavLinks & {
+  onClick?: () => void
+}
+
+export default function LinkNav({
+  href,
+  label,
+  onClick = undefined,
+}: TLinkNav) {
   return (
     <li className="text-muted-foreground hover:text-foreground transition-all">
-      <Link href={href}>{label}</Link>
+      <Link onClick={() => (onClick ? onClick() : null)} href={href}>
+        {label}
+      </Link>
     </li>
   )
 }

@@ -3,15 +3,15 @@ import type { TNavLinks } from '@/lib/types'
 export const NAVBAR_LINKS: Array<TNavLinks> = [
   {
     label: 'Link 1',
-    href: '/link1',
+    href: '/',
   },
   {
     label: 'Link 2',
-    href: '/link2',
+    href: '/',
   },
   {
     label: 'Link 3',
-    href: '/link3',
+    href: '/',
   },
 ]
 
