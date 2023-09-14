@@ -29,7 +29,7 @@ export default function Auth() {
         ) : (
           <div className="w-[70%] flex flex-col mt-[200px]">
             <h1 className="text-black mb-[5px] text-3xl font-black">
-              C'est partit
+              C&apos;est partit
             </h1>
             <h2 className="text-black text-lg">Créez un compte</h2>
             <div className="w-[100%] h-[200px] mt-[30px] border-solid border-red-500 border">
