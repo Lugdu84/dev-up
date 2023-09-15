@@ -7,9 +7,9 @@ import { signIn } from 'next-auth/react'
 import Logo from '../../../public/assets/logo.png'
 import Dev from '../../../public/assets/dev.jpg'
 import GitHub from '../../../public/assets/github.svg'
-import ProvidersBtn from '@/app/components/Buttons/ProvidersBtn'
+import ProvidersBtn from '@/components/widgets/providers-btn'
 import Google from '../../../public/assets/google.svg'
-import Providers from '@/app/components/Providers/Providers'
+import Providers from '@/components/widgets/providers'
 
 export default function Auth() {
   const [registered, setRegistered] = useState(true)

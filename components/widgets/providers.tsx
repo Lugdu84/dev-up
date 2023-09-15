@@ -12,7 +12,7 @@ export default function Providers({
   children,
 }: ProvidersProps): React.ReactElement {
   return (
-    <div className="w-[80%] h-auto flex flex-col mt-[200px] md:w-[40%] lg:w-[60%]">
+    <div className="w-[80%] h-auto flex flex-col mt-32 md:w-[40%] lg:w-[60%]">
       <h1 className="text-black mb-[5px] text-2xl font-black md:text-l xl:text-3xl">
         {h1}
       </h1>

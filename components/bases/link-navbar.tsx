@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import type { TNavLinks } from '@/lib/types'
+import type { TNavLinks } from '@/types/types'
 
 type TLinkNav = TNavLinks & {
   onClick?: () => void
