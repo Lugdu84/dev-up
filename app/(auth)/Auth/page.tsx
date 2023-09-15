@@ -1,28 +1,17 @@
-'use client'
-
-import React, { useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
 import Logo from '../../../public/assets/logo.png'
 import Dev from '../../../public/assets/dev.jpg'
-import GitHub from '../../../public/assets/github.svg'
-import ProvidersBtn from '@/components/widgets/providers-btn'
-import Google from '../../../public/assets/google.svg'
 import Providers from '@/components/widgets/providers'
 
-export default function Auth() {
-  const [registered, setRegistered] = useState(true)
-
-  const handleGitHub = async () => {
-    signIn('github', { callbackUrl: window.location.origin })
+type AuthProps = {
+  searchParams: {
+    query: string
   }
+}
 
-  // TODO: Bug provider
-  const handleGoogle = () => {
-    signIn('google', { callbackUrl: window.location.origin })
-  }
-
+export default function Auth({ searchParams: { query } }: AuthProps) {
   return (
     <div className="w-[100%] h-[100%] flex bg-white md:justify-center">
       {/* Partie gauche */}
@@ -31,52 +20,20 @@ export default function Auth() {
           <Image src={Logo} alt="Dev-Up!" />
         </Link>
 
-        {registered ? (
-          <Providers h1="Heureux de vous revoir" h2="Connectez vous">
-            <ProvidersBtn
-              src={GitHub}
-              alt="Logo GitHub"
-              width={25}
-              height={25}
-              name="Se connecter avec GitHub"
-              onClick={handleGitHub}
-            />
-            <ProvidersBtn
-              src={Google}
-              alt="Logo Google"
-              width={25}
-              height={25}
-              name="Se connecter avec Google"
-              onClick={handleGoogle}
-            />
-          </Providers>
+        {query === 'signin' ? (
+          <Providers h1="Heureux de vous revoir" h2="Connectez vous" />
         ) : (
-          <Providers h1="C'est partit" h2="Créez un compte">
-            <ProvidersBtn
-              src={GitHub}
-              alt="Logo GitHub"
-              width={25}
-              height={25}
-              name="S'inscire avec GitHub"
-              onClick={handleGitHub}
-            />
-            <ProvidersBtn
-              src={Google}
-              alt="Logo Google"
-              width={25}
-              height={25}
-              name="S'inscire avec Google"
-              onClick={handleGoogle}
-            />
-          </Providers>
+          <Providers h1="C'est partit" h2="Créez un compte" />
         )}
-        <button
+
+        <Link
           className="text-black mt-[200px] hover:underline lg:text-sm xl:text-lg"
-          type="button"
-          onClick={() => setRegistered(!registered)}
+          href={
+            query === 'signin' ? '/auth?query=signup' : '/auth?query=signin'
+          }
         >
-          {registered ? 'Pas de compte ?' : 'Déja inscrit ?'}
-        </button>
+          {query === 'signin' ? 'Pas de compte ?' : 'Déja inscrit ?'}
+        </Link>
       </div>
       {/* Partie droite */}
       <div className="hidden h-auto lg:block">
@@ -86,7 +43,6 @@ export default function Auth() {
           alt=""
         />
       </div>
-      {/* <ToastContainer /> */}
     </div>
   )
 }
