@@ -1,4 +1,4 @@
-import type { TNavLinks } from '@/lib/types'
+import type { TNavLinks } from '@/types/types'
 
 export const NAVBAR_LINKS: Array<TNavLinks> = [
   {
