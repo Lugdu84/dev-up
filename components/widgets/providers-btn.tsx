@@ -20,7 +20,7 @@ export default function ProvidersBtn({
 }: ProvidersBtnProps) {
   return (
     <button
-      className="text-black w-[100%] h-[50px] flex justify-center items-center border-[#8c8c8c] border rounded-lg bg-[#edebeb] xl:text-sm lg:text-xs"
+      className="text-black w-[100%] h-[50px] flex justify-center items-center border-[#8c8c8c] border rounded-lg bg-[#edebeb] hover:bg-[#edebeb]/60 xl:text-sm lg:text-xs"
       type="submit"
       onClick={onClick}
     >
