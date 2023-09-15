@@ -22,6 +22,9 @@ const options = {
       },
     }),
   ],
+  pages: {
+    error: '/auth',
+  },
 }
 
 export default options
