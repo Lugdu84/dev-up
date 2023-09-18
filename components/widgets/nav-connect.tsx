@@ -65,7 +65,7 @@ export default function NavConnect() {
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Link href="/Auth" className="md:flex">
+        <Link href="/auth" className="md:flex">
           <Button size="sm">Se Connecter</Button>
         </Link>
       )}
