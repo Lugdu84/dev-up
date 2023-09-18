@@ -14,7 +14,11 @@ jobs:
           echo "$GITHUB_CONTEXT"
       - name: Checkout 🛎
         uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Run Cypress 🌲
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v6
         env:
           CYPRESS_BASE_URL: ${{ github.event.deployment_status.target_url }}
