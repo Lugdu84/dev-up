@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import { Bell, Gauge, LogOut, User } from 'lucide-react'
+import { Bell, Gauge, LogOut, User, UserCircle2 } from 'lucide-react'
+
+import { signOut, useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -14,11 +16,12 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 
 export default function NavConnect() {
-  const user: boolean = true
+  const { data: session } = useSession()
+  console.log(session)
 
   return (
     <div className="order-3">
-      {user ? (
+      {session ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -26,16 +29,17 @@ export default function NavConnect() {
               className="relative h-8 w-8 rounded-full items-center flex"
             >
               <Avatar className="h-9 w-9">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>SC</AvatarFallback>
+                {session.user?.image ? (
+                  <AvatarImage src={session.user?.image} alt="@shadcn" />
+                ) : null}
+                <AvatarFallback>
+                  <UserCircle2 />
+                </AvatarFallback>
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56 " align="end" forceMount>
-            <DropdownMenuLabel>test@gmail.com</DropdownMenuLabel>
+            <DropdownMenuLabel>{session.user?.email}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
@@ -53,13 +57,15 @@ export default function NavConnect() {
               <DropdownMenuSeparator />
               <DropdownMenuItem>
                 <LogOut className="mr-2 h-4 w-4" />
-                <span>Logout</span>
+                <Link href="/" onClick={() => signOut()}>
+                  Logout
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
       ) : (
-        <Link href="/login" className="md:flex">
+        <Link href="/Auth" className="md:flex">
           <Button size="sm">Se Connecter</Button>
         </Link>
       )}

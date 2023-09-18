@@ -18,7 +18,7 @@ export default function Navbar() {
       <ul className="md:flex gap-4 hidden order-2">
         {NAVBAR_LINKS.map(({ label, href }) => (
           <LinkNav
-            key={href}
+            key={label}
             label={label}
             href={href}
             onClick={() => setShowNavbar(false)}
@@ -41,7 +41,7 @@ export default function Navbar() {
               {NAVBAR_LINKS.map(({ label, href }) => (
                 <LinkNav
                   onClick={() => setShowNavbar(false)}
-                  key={href}
+                  key={label}
                   label={label}
                   href={href}
                 />
