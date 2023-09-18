@@ -14,7 +14,11 @@ jobs:
           echo "$GITHUB_CONTEXT"
       - name: Checkout 🛎
         uses: actions/checkout@v1
+        with:
+            cache: 'yarn'
       - name: Run Cypress 🌲
         uses: cypress-io/github-action@v6
+        with:
+          cache: 'yarn'
         env:
           CYPRESS_BASE_URL: ${{ github.event.deployment_status.target_url }}
