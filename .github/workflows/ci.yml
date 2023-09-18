@@ -19,6 +19,7 @@ jobs:
       - name: Run Cypress 🌲
         uses: cypress-io/github-action@v6
         with:
-          cache: 'yarn'
+          build: npm run build
+          start: npm start
         env:
           CYPRESS_BASE_URL: ${{ github.event.deployment_status.target_url }}
