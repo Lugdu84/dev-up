@@ -47,7 +47,7 @@ export default function Navbar() {
                 />
               ))}
               <div className="mt-4 flex flex-col gap-4">
-                <Link href="/login">
+                <Link href="/auth">
                   <Button className="w-full h-10">Se connecter</Button>
                 </Link>
               </div>
