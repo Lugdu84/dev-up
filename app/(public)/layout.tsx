@@ -21,7 +21,7 @@ export default async function SiteLayout({ children }: SiteLayoutProps) {
   // }
   return (
     <div className="flex min-h-screen flex-col relative">
-      <header className="fixed inset-0 top-0 z-20 border-b border-border bg-white h-16">
+      <header className="fixed inset-0 top-0 z-20  h-16">
         <ClientProvider session={session}>
           <Navbar />
         </ClientProvider>

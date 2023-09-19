@@ -11,7 +11,7 @@ export default function LinkNav({
   onClick = undefined,
 }: TLinkNav) {
   return (
-    <li className="text-muted-foreground hover:text-foreground transition-all">
+    <li className="text-forground text-base lg:text-background lg:hover:text-forground transition-all lg:text-lg font-medium lg:[text-shadow:_0px_0px_20px_#000000]">
       <Link onClick={() => (onClick ? onClick() : null)} href={href}>
         {label}
       </Link>

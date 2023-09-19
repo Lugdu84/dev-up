@@ -1,10 +1,18 @@
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
-export default function Logo() {
+type TlogoProps = {
+  hasSession: boolean
+}
+
+export default function Logo({ hasSession }: TlogoProps) {
   return (
     <Link
       href="/"
-      className="font-semibold uppercase text-foreground text-xl  hover:underline underline-offset-4 order-2 md:order-1"
+      className={cn(
+        'font-semibold uppercase text-background text-xl  hover:underline underline-offset-4',
+        hasSession ? 'order-2' : 'order-1',
+      )}
     >
       DEVUP
     </Link>
