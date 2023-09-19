@@ -1,18 +1,12 @@
 'use client'
 
+import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import React from 'react'
-import YouTube from 'react-youtube'
 
 export default function Description() {
-  const videoId = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-
-  const opts = {
-    width: '100%',
-  }
   return (
-    // TODO: Revoir le responsive 1440px
-    <div className="w-11/12 flex flex-col-reverse self-center mt-10 mb-10 md:w-3/4 lg:w-3/5 xl:flex-row">
-      <div className="w-full flex flex-col mt-6 xl:mt-0 mr-10">
+    <div className="w-11/12 flex flex-col-reverse self-center my-10 md:w-3/4 lg:w-3/5 xl:flex-row xl:w-5/6 items-center 2xl:w-3/5">
+      <div className="w-full flex flex-col items-center md:items-start mt-6 mx-auto xl:mt-0 mr-10">
         <h2 className="text-2xl font-bold mb-3 xl:mb-6">Qui sommes nous ?</h2>
         <p className="w-full text-justify">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto
@@ -29,8 +23,17 @@ export default function Description() {
         </p>
       </div>
 
-      <div className="w-full h-auto xl:">
-        <YouTube videoId={videoId} opts={opts} />
+      <div className="w-full h-auto">
+        <AspectRatio ratio={16 / 9}>
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </AspectRatio>
       </div>
     </div>
   )
