@@ -17,7 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import type { TUser } from '@/types/types'
 
 type UserProps = {
-  user: TUser
+  user?: TUser
 }
 
 export default function NavConnect({ user }: UserProps) {
