@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth/next'
 import Footer from '@/components/widgets/footer'
 import Navbar from '@/components/widgets/navbar'
 import options from '@/app/api/auth/[...nextauth]/options'
+import UserCategorie from '@/components/widgets/user-categorie'
 // import prisma from '@/lib/prisma/prisma'
 import ClientProvider from '@/components/widgets/client-provider'
 
@@ -27,6 +28,7 @@ export default async function SiteLayout({ children }: SiteLayoutProps) {
         </ClientProvider>
       </header>
       <main className="flex flex-1 flex-col">{children}</main>
+      <UserCategorie />
       <Footer />
     </div>
   )
