@@ -11,14 +11,6 @@ type SiteLayoutProps = { children: ReactNode }
 export default async function SiteLayout({ children }: SiteLayoutProps) {
   const session = await getServerSession(options)
 
-  // if (session?.user?.email) {
-  //   const user = await prisma.user.findUnique({
-  //     where: {
-  //       email: session.user.email,
-  //     },
-  //   })
-  //   console.log(user)
-  // }
   return (
     <div className="flex min-h-screen flex-col relative">
       <header className="fixed inset-0 top-0  h-16 z-50">
