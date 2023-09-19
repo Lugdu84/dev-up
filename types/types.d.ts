@@ -3,6 +3,11 @@ export type TNavLinks = {
   href: string
 }
 
+export type TIconsFooter = {
+  icon: string
+  href: string
+}
+
 export type TUser = {
   email?: string | null | undefined
   image?: string | null | undefined
