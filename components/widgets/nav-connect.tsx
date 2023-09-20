@@ -15,12 +15,14 @@ import {
 } from '../ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import type { TUser } from '@/types/types'
+import useScrollHook from '@/lib/hooks/scrollHook'
 
 type UserProps = {
   user?: TUser
 }
 
 export default function NavConnect({ user }: UserProps) {
+  const { scrollPos } = useScrollHook()
   return (
     <>
       {user ? (
@@ -70,7 +72,7 @@ export default function NavConnect({ user }: UserProps) {
         </div>
       ) : (
         <Link href="/auth" className="hidden md:flex order-3">
-          <Button variant="secondary" size="sm">
+          <Button variant={scrollPos ? 'default' : 'secondary'} size="sm">
             Se Connecter
           </Button>
         </Link>
