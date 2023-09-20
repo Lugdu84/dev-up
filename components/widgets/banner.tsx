@@ -10,13 +10,13 @@ export default function Banner() {
 
   const PositionChevron = [
     {
-      top: '0',
+      top: 'top-[0px]',
     },
     {
-      top: '10',
+      top: 'top-[10px]',
     },
     {
-      top: '20',
+      top: 'top-[20px]',
     },
   ]
 
@@ -44,12 +44,16 @@ export default function Banner() {
             : 'absolute top-[94%] flex flex-col items-center w-[50px] h-[50px]'
         }
       >
-        {PositionChevron.map(({ top }) => (
-          <ChevronDown
-            className={`absolute text-white z-20 animate-bounce lg:hidden top-[${top}px]`}
-            size={36}
-          />
-        ))}
+        {PositionChevron.map((chevron) => {
+          const { top } = chevron
+          return (
+            <ChevronDown
+              className={`absolute text-white z-20 animate-bounce lg:hidden ${top}`}
+              size={36}
+              key={top}
+            />
+          )
+        })}
       </div>
     </div>
   )
