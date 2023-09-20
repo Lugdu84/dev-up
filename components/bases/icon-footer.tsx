@@ -1,5 +1,6 @@
 import React from 'react'
 import { Github, Linkedin, Youtube } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { TIconsFooter } from '@/types/types'
 
@@ -11,7 +12,7 @@ const Icons: Record<string, React.ReactNode> = {
 
 export default function IconFooter({ icon, href }: TIconsFooter) {
   return (
-    <a href={href} target="_blank" rel="noreferrer">
+    <Link href={href} target="_blank" prefetch={false}>
       <Button
         variant="ghost"
         size="icon"
@@ -19,6 +20,6 @@ export default function IconFooter({ icon, href }: TIconsFooter) {
       >
         {Icons[icon]}
       </Button>
-    </a>
+    </Link>
   )
 }
