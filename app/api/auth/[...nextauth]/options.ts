@@ -23,6 +23,7 @@ const options = {
     }),
   ],
   pages: {
+    signIn: '/auth',
     error: '/auth',
   },
 }

@@ -8,10 +8,11 @@ import Providers from '@/components/widgets/providers'
 type AuthProps = {
   searchParams: {
     query: string
+    error?: string
   }
 }
 
-export default function Auth({ searchParams: { query } }: AuthProps) {
+export default function Auth({ searchParams: { query, error } }: AuthProps) {
   return (
     <div className="w-[100%] h-[100%] flex bg-white md:justify-center">
       {/* Partie gauche */}
@@ -25,7 +26,12 @@ export default function Auth({ searchParams: { query } }: AuthProps) {
         ) : (
           <Providers h1="C'est partit" h2="Créez un compte" />
         )}
-
+        {error === 'OAuthAccountNotLinked' && (
+          <p className="text-red-500 text-center">
+            Veuillez vous connecter avec le provider à l&apos;aide duquel vous
+            avez créé votre compte.
+          </p>
+        )}
         <Link
           className="text-black mt-[200px] hover:underline lg:text-sm xl:text-lg"
           href={
