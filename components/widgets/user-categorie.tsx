@@ -1,12 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 
-// type Categorie = {
-//   title: string
-//   image: string
-//   description: string
-// }
-
 const categories = [
   {
     title: 'Futur apprenant',
