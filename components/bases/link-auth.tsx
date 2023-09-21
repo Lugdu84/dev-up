@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { TLinkAuth } from '@/types/types'
 import { DropdownMenuItem } from '../ui/dropdown-menu'
 
-const Icons: Record<string, React.ReactNode> = {
+const Icons: Record<string, React.JSX.Element> = {
   dashboard: <Gauge className="mr-2 h-4 w-4" />,
   notifications: <Bell className="mr-2 h-4 w-4" />,
   profile: <User className="mr-2 h-4 w-4" />,
