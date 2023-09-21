@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { Bell, Gauge, LogOut, User, UserCircle2 } from 'lucide-react'
+import { LogOut, UserCircle2 } from 'lucide-react'
 
 import { signOut } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
@@ -16,6 +16,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import type { TUser } from '@/types/types'
 import useScrollHook from '@/lib/hooks/scrollHook'
+import { LINKAUTH } from '@/lib/constants'
+import LinkAuth from '../bases/link-auth'
 
 type UserProps = {
   user?: TUser
@@ -46,19 +48,12 @@ export default function NavConnect({ user }: UserProps) {
             <DropdownMenuContent className="w-56 " align="end" forceMount>
               <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
               <DropdownMenuSeparator />
+
               <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <Gauge className="mr-2 h-4 w-4" />
-                  <span>Dashboard</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Bell className="mr-2 h-4 w-4" />
-                  <span>Notifications</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </DropdownMenuItem>
+                {LINKAUTH.map(({ icon, label, href }) => (
+                  <LinkAuth icon={icon} label={label} href={href} key={label} />
+                ))}
+
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <LogOut className="mr-2 h-4 w-4" />

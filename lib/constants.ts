@@ -1,4 +1,4 @@
-import type { TIconsFooter, TNavLinks } from '@/types/types'
+import type { TIconsFooter, TNavLinks, TLinkAuth } from '@/types/types'
 
 const currentYear = new Date().getFullYear()
 export const NAVBAR_LINKS: Array<TNavLinks> = [
@@ -57,3 +57,21 @@ export const FOOTER = {
   icons: IconsFooter,
   navigate: FOOTER_LINKS,
 }
+
+export const LINKAUTH: Array<TLinkAuth> = [
+  {
+    icon: 'dashboard',
+    label: 'Dashboard',
+    href: '/',
+  },
+  {
+    icon: 'notifications',
+    label: 'Notifications',
+    href: '/',
+  },
+  {
+    icon: 'profile',
+    label: 'Profile',
+    href: '/',
+  },
+]
