@@ -5,6 +5,12 @@ export type TNavLinks = {
 
 export type TIconsFooter = {
   icon: string
+
+  href: string
+}
+export type TLinkAuth = {
+  icon?: string | undefined
+  label: string
   href: string
 }
 

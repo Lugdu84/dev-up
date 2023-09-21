@@ -31,7 +31,7 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <p className="container mt-4 text-center text-sm text-muted-foreground">
+      <p className="container mt-4 md:mt-6 text-center text-sm text-muted-foreground">
         {FOOTER.copyright}
       </p>
     </footer>

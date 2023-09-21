@@ -3,7 +3,7 @@
 import React from 'react'
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import Logo from '@/components/bases/logo'
 import NavConnect from '@/components/widgets/nav-connect'
 import { Button } from '@/components/ui/button'
@@ -57,7 +57,15 @@ export default function Navbar() {
               {NAVBAR_LINKS.map(({ label, href }) => (
                 <LinkNav key={label} label={label} href={href} />
               ))}
-              {session ? null : (
+              {session ? (
+                <div className="mt-auto flex flex-col gap-4">
+                  <Link href="/" onClick={() => signOut()}>
+                    <Button variant="outline" className="w-full h-10">
+                      Se déconnecter
+                    </Button>
+                  </Link>
+                </div>
+              ) : (
                 <div className="mt-auto flex flex-col gap-4">
                   <Link href="/auth">
                     <Button className="w-full h-10">Se connecter</Button>
