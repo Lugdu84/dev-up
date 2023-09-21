@@ -45,26 +45,37 @@ model User {
   emailVerified DateTime?
   image         String?
   accounts      Account[]
-  sessions      Session[]
+  sessions      Session[] 
+  tutorials     Tutorial[]
   role          Role      @default(USER)
-  type          Type?
+  type          Level?
 }
 
 model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
-
   @@unique([identifier, token])
 }
 
+model Tutorial {
+  id String   @id @default(cuid())
+  author User @relation(fields: [authorId], references: [id]  )
+  authorId String
+  title String
+  level Level[]
+  descripion String
+  image String?
+  video String?
+  tags String[]
+  }
 enum Role {
   USER
   MODERATOR
   ADMIN
 }
 
-enum Type {
+enum Level {
   NEWBIE
   APPRENTICE
   JUNIOR
