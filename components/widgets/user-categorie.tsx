@@ -2,12 +2,16 @@
 
 import React, { useState } from 'react'
 import Image from 'next/image'
+import { cn } from '@/lib/utils'
 
 type Category = {
   id: number
   title: string
   image: string
   description: string
+  borderColor: string
+  bg: string
+  hover: string
 }
 
 const categories: Category[] = [
@@ -17,6 +21,9 @@ const categories: Category[] = [
     image: '/assets/noob.png',
     description:
       '1) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed aliquam faucibus, nunc nunc aliquet nunc, vitae aliquam nunc nunc eu nunc.',
+    borderColor: 'border border-lime-200',
+    bg: 'bg-lime-200',
+    hover: 'hover:bg-lime-200',
   },
   {
     id: 2,
@@ -24,6 +31,9 @@ const categories: Category[] = [
     image: '/assets/eleve.png',
     description:
       '2) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed aliquam faucibus, nunc nunc aliquet nunc, vitae aliquam nunc nunc eu nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed aliquam faucibus, nunc nunc aliquet nunc, vitae aliquam nunc nunc eu nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed aliquam faucibus, nunc nunc aliquet nunc, vitae aliquam nunc nunc eu nunc.',
+    borderColor: 'border border-yellow-200',
+    bg: 'bg-yellow-200',
+    hover: 'hover:bg-yellow-200',
   },
   {
     id: 3,
@@ -31,6 +41,9 @@ const categories: Category[] = [
     image: '/assets/developper.png',
     description:
       '3) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed aliquam faucibus, nunc nunc aliquet nunc, vitae aliquam nunc nunc eu nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed aliquam faucibus, nunc nunc aliquet nunc, vitae aliquam nunc nunc eu nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed aliquam faucibus, nunc nunc aliquet nunc, vitae aliquam nunc nunc eu nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed aliquam faucibus, nunc nunc aliquet nunc, vitae aliquam nunc nunc eu nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed aliquam faucibus, nunc nunc aliquet nunc, vitae aliquam nunc nunc eu nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl sed aliquam faucibus, nunc nunc aliquet nunc, vitae aliquam nunc nunc eu nunc.',
+    borderColor: 'border border-red-200',
+    bg: 'bg-red-200',
+    hover: 'hover:bg-red-200',
   },
 ]
 export default function UserCategorie() {
@@ -45,21 +58,37 @@ export default function UserCategorie() {
       setSelectedCategory(categories[index])
     }
   }
+
+  const handleCategoryClick = (category: Category) => {
+    setSelectedCategory(category)
+  }
+
   return (
     <div className="w-full mb-10 flex flex-col self-center md:w-3/4 lg:w-full lg:justify-center">
       <div className="bg-slate-200 flex flex-col items-center lg:w-5/6 lg:flex-row lg:justify-center 2xl:w-full">
         {categories.map((category, index) => {
-          const { title, image, id } = category
+          const { title, image, description, id, borderColor, bg, hover } =
+            category
+          const isSelected = selectedCategory === category
           return (
             <div
               key={id}
-              className="relative border flex flex-col items-center w-full h-full py-10 border-black md:w-full 2xl:w-1/5"
+              role="button"
+              onKeyDown={(e) => handleKeyDown(e, index)}
+              tabIndex={0}
+              className={cn(
+                `relative ${
+                  isSelected && borderColor
+                } ${hover} flex flex-col items-center w-full h-full py-10 md:w-full 2xl:w-1/5`,
+                isSelected && bg,
+              )}
+              onClick={() => handleCategoryClick(category)}
             >
               <div
-                role="button"
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                tabIndex={0}
-                onClick={() => setSelectedCategory(categories[index])}
+                // role="button"
+                // onKeyDown={(e) => handleKeyDown(e, index)}
+                // tabIndex={0}
+                // // onClick={() => setSelectedCategory(categories[index])}
                 className=" bg-white w-[200px] h-[200px] rounded-full flex justify-center items-center cursor-pointer"
               >
                 <Image
@@ -71,12 +100,23 @@ export default function UserCategorie() {
                 />
               </div>
               <h2 className="text-center text-lg mt-3">{title}</h2>
+              {/* TODO: Gerer l'affichage d'une seule description (toutes sont affichées à l'heure actuelle) */}
+              {selectedCategory && (
+                <div
+                  className={`${bg} w-full rounded-b-2xl shadow-md md:hidden 2xl:w-3/5 2xl:flex p-5 2xl:justify-center 2xl:self-center`}
+                >
+                  <p className="w-full">{description}</p>
+                </div>
+              )}
             </div>
           )
         })}
       </div>
+
       {selectedCategory && (
-        <div className="2xl:w-3/5 2xl:flex p-5 2xl:justify-center 2xl:self-center border border-red-600">
+        <div
+          className={`${selectedCategory.bg} hidden rounded-b-2xl shadow-md 2xl:w-3/5 2xl:flex p-5 2xl:justify-center 2xl:self-center`}
+        >
           <p className="w-full">{selectedCategory.description}</p>
         </div>
       )}
