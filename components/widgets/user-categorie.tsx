@@ -65,7 +65,7 @@ export default function UserCategorie() {
 
   return (
     <div className="w-full mb-10 flex flex-col self-center md:w-3/4 lg:w-full lg:justify-center">
-      <div className="bg-slate-200 flex flex-col items-center lg:w-5/6 lg:flex-row lg:justify-center 2xl:w-full">
+      <div className="bg-slate-200 flex flex-col items-center lg:w-full lg:self-center lg:flex-row lg:justify-center 2xl:w-full">
         {categories.map((category, index) => {
           const { title, image, description, id, borderColor, bg, hover } =
             category
@@ -79,18 +79,12 @@ export default function UserCategorie() {
               className={cn(
                 `relative ${
                   isSelected && borderColor
-                } ${hover} flex flex-col items-center w-full h-full py-10 md:w-full 2xl:w-1/5`,
+                } ${hover} flex flex-col items-center w-full h-full py-10 lg:w-1/4 2xl:w-1/5`,
                 isSelected && bg,
               )}
               onClick={() => handleCategoryClick(category)}
             >
-              <div
-                // role="button"
-                // onKeyDown={(e) => handleKeyDown(e, index)}
-                // tabIndex={0}
-                // // onClick={() => setSelectedCategory(categories[index])}
-                className=" bg-white w-[200px] h-[200px] rounded-full flex justify-center items-center cursor-pointer"
-              >
+              <div className=" bg-white w-[200px] h-[200px] rounded-full flex justify-center items-center cursor-pointer">
                 <Image
                   src={image}
                   alt={title}
@@ -100,9 +94,8 @@ export default function UserCategorie() {
                 />
               </div>
               <h2 className="text-center text-lg mt-3">{title}</h2>
-              {/* TODO: Gerer l'affichage d'une seule description (toutes sont affichées à l'heure actuelle) */}
               {isSelected && (
-                <div className={`${bg} w-full lg:hidden 2xl:w-3/5 p-5`}>
+                <div className={`${bg} w-full lg:hidden p-5`}>
                   <p className="w-full">{description}</p>
                 </div>
               )}
@@ -113,7 +106,7 @@ export default function UserCategorie() {
 
       {selectedCategory && (
         <div
-          className={`${selectedCategory.bg} hidden rounded-b-2xl shadow-md 2xl:w-3/5 2xl:flex p-5 2xl:justify-center 2xl:self-center`}
+          className={`${selectedCategory.bg} hidden rounded-b-2xl shadow-md lg:w-3/4 lg:flex p-5 lg:justify-center lg:self-center 2xl:w-3/5`}
         >
           <p className="w-full">{selectedCategory.description}</p>
         </div>
