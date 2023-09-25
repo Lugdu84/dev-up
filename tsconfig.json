@@ -13,8 +13,6 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    // error Type error: Property 'className' does not exist on type 'DialogPortalProps'.
-    "preserveSymlinks": true,
     "plugins": [
       {
         "name": "next"
