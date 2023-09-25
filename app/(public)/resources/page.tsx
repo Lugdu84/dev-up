@@ -10,8 +10,6 @@ export default async function page() {
     take: 4,
   })
 
-  console.log(tutos)
-
   return (
     <div className="mt-[10vh] flex flex-col">
       <section className="container py-8 flex flex-col gap-6">

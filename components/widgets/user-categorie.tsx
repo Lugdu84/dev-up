@@ -1,7 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { cn } from '@/lib/utils'
 
 type Category = {
@@ -12,6 +14,7 @@ type Category = {
   borderColor: string
   bg: string
   hover: string
+  link: string
 }
 
 const categories: Category[] = [
@@ -24,6 +27,7 @@ const categories: Category[] = [
     borderColor: 'border border-lime-200',
     bg: 'bg-lime-200',
     hover: 'hover:bg-lime-200',
+    link: '/auth',
   },
   {
     id: 2,
@@ -34,6 +38,7 @@ const categories: Category[] = [
     borderColor: 'border border-yellow-200',
     bg: 'bg-yellow-200',
     hover: 'hover:bg-yellow-200',
+    link: '/auth',
   },
   {
     id: 3,
@@ -44,9 +49,11 @@ const categories: Category[] = [
     borderColor: 'border border-red-200',
     bg: 'bg-red-200',
     hover: 'hover:bg-red-200',
+    link: '/auth',
   },
 ]
 export default function UserCategorie() {
+  const { data: session } = useSession()
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null,
   )
@@ -67,8 +74,16 @@ export default function UserCategorie() {
     <div className="w-full mb-10 flex flex-col self-center md:w-3/4 lg:w-full lg:justify-center">
       <div className="bg-slate-200 flex flex-col items-center lg:w-full lg:self-center lg:flex-row lg:justify-center 2xl:w-full">
         {categories.map((category, index) => {
-          const { title, image, description, id, borderColor, bg, hover } =
-            category
+          const {
+            title,
+            image,
+            description,
+            id,
+            borderColor,
+            bg,
+            hover,
+            link,
+          } = category
           const isSelected = selectedCategory === category
           return (
             <div
@@ -79,7 +94,7 @@ export default function UserCategorie() {
               className={cn(
                 `relative ${
                   isSelected && borderColor
-                } ${hover} flex flex-col items-center w-full h-full py-10 lg:w-1/4 2xl:w-1/5`,
+                } ${hover} flex flex-col items-center w-full h-full pt-10 lg:w-1/4 xl:pb-10 2xl:w-1/5`,
                 isSelected && bg,
               )}
               onClick={() => handleCategoryClick(category)}
@@ -96,7 +111,12 @@ export default function UserCategorie() {
               <h2 className="text-center text-lg mt-3">{title}</h2>
               {isSelected && (
                 <div className={`${bg} w-full lg:hidden p-5`}>
-                  <p className="w-full">{description}</p>
+                  <p className="w-full mb-5">{description}</p>
+                  {!session && (
+                    <Link className="text-sm font-bold" href={link}>
+                      Se connecter
+                    </Link>
+                  )}
                 </div>
               )}
             </div>
@@ -106,9 +126,17 @@ export default function UserCategorie() {
 
       {selectedCategory && (
         <div
-          className={`${selectedCategory.bg} hidden rounded-b-2xl shadow-md lg:w-3/4 lg:flex p-5 lg:justify-center lg:self-center 2xl:w-3/5`}
+          className={`${selectedCategory.bg} hidden rounded-b-2xl shadow-md lg:w-3/4 lg:flex lg:flex-col p-5 lg:justify-center lg:self-center 2xl:w-3/5`}
         >
           <p className="w-full">{selectedCategory.description}</p>
+          {!session && (
+            <Link
+              className="self-end text-sm font-bold hover:underline"
+              href={selectedCategory.link}
+            >
+              Se connecter
+            </Link>
+          )}
         </div>
       )}
     </div>

@@ -14,13 +14,12 @@ export default async function SiteLayout({ children }: SiteLayoutProps) {
 
   return (
     <div className="flex min-h-screen flex-col relative">
-      <header className="fixed inset-0 top-0  h-16 z-50">
-        <ClientProvider session={session}>
+      <ClientProvider session={session}>
+        <header className="fixed inset-0 top-0  h-16 z-50">
           <Navbar />
-        </ClientProvider>
-      </header>
-      <main className="flex flex-1 flex-col">{children}</main>
-
+        </header>
+        <main className="flex flex-1 flex-col">{children}</main>
+      </ClientProvider>
       <Footer />
     </div>
   )
