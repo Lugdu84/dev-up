@@ -58,7 +58,7 @@ export default function NavConnect({ user }: UserProps) {
                 <DropdownMenuItem>
                   <LogOut className="mr-2 h-4 w-4" />
                   <Link href="/" onClick={() => signOut()}>
-                    Se déconnecter
+                    Déconnexion
                   </Link>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
