@@ -28,7 +28,7 @@ export default function NavConnect({ user }: UserProps) {
   return (
     <>
       {user ? (
-        <div className="order-3">
+        <div className="order-3 flex-1 flex justify-end">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
@@ -66,7 +66,10 @@ export default function NavConnect({ user }: UserProps) {
           </DropdownMenu>
         </div>
       ) : (
-        <Link href="/auth" className="hidden md:flex order-3">
+        <Link
+          href="/auth"
+          className="hidden order-3 md:flex-1 md:flex justify-end"
+        >
           <Button variant={scrollPos ? 'default' : 'secondary'} size="sm">
             Se Connecter
           </Button>

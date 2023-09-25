@@ -64,11 +64,12 @@ model Tutorial {
   authorId String
   title String
   level Level[]
-  descripion String
+  description String
   image String?
   video String?
   tags String[]
   }
+  
 enum Role {
   USER
   MODERATOR

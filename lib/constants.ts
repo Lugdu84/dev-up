@@ -3,8 +3,8 @@ import type { TIconsFooter, TNavLinks, TLinkAuth } from '@/types/types'
 const currentYear = new Date().getFullYear()
 export const NAVBAR_LINKS: Array<TNavLinks> = [
   {
-    label: 'Link 1',
-    href: '/',
+    label: 'Resources',
+    href: '/resources',
   },
   {
     label: 'Link 2',

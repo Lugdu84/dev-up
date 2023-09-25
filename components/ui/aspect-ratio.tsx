@@ -4,4 +4,5 @@ import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio'
 
 const AspectRatio = AspectRatioPrimitive.Root
 
-export default AspectRatio
+export { AspectRatio }
+export const Test = () => 'test'
