@@ -4,6 +4,7 @@ import React from 'react'
 import { Menu } from 'lucide-react'
 import Link from 'next/link'
 import { useSession, signOut } from 'next-auth/react'
+import { usePathname } from 'next/navigation'
 import Logo from '@/components/bases/logo'
 import NavConnect from '@/components/widgets/nav-connect'
 import { Button } from '@/components/ui/button'
@@ -11,11 +12,12 @@ import { NAVBAR_LINKS } from '@/lib/constants'
 import LinkNav from '../bases/link-navbar'
 import { cn } from '@/lib/utils'
 import useScrollHook from '@/lib/hooks/scrollHook'
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet'
+import { Sheet, SheetTrigger, SheetContent } from '../ui/sheet'
 
 export default function Navbar() {
   const { scrollPos } = useScrollHook()
   const { data: session } = useSession()
+  const pathname = usePathname()
 
   return (
     <div
@@ -25,12 +27,17 @@ export default function Navbar() {
           : 'bg-transparent animate-out slide-out-to-top-80 duration-150'
       }
     >
-      <nav className="flex items-center justify-between h-16 relative container">
-        <Logo hasSession={!!session} color={scrollPos ? 'black' : 'white'} />
+      <nav className="flex items-center h-16 relative container">
+        <Logo
+          hasSession={!!session}
+          color={scrollPos || pathname !== '/' ? 'black' : 'white'}
+        />
         <ul
           className={cn(
             'md:flex gap-8 hidden order-2',
-            scrollPos ? 'text-forground' : ' text-background',
+            scrollPos || pathname !== '/'
+              ? 'text-forground'
+              : ' text-background',
           )}
         >
           {NAVBAR_LINKS.map(({ label, href }) => (
@@ -41,12 +48,14 @@ export default function Navbar() {
         <Sheet>
           <SheetTrigger asChild>
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
               className={cn(
                 'md:hidden',
                 session ? 'order-1' : 'order-2',
-                scrollPos ? 'text-foreground' : 'text-background',
+                scrollPos || pathname !== '/'
+                  ? 'text-foreground'
+                  : 'text-foreground',
               )}
             >
               <Menu />

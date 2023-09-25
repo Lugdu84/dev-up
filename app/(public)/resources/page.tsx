@@ -3,29 +3,15 @@ import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import CardTuto from '@/components/widgets/card-tuto'
+import prisma from '@/lib/prisma/prisma'
 
-const items = [
-  {
-    label: 'item 1',
-  },
-  {
-    label: 'item 2',
-  },
-  {
-    label: 'item 3',
-  },
-  {
-    label: 'item 4',
-  },
-  {
-    label: 'item 5',
-  },
-  {
-    label: 'item 6',
-  },
-]
+export default async function page() {
+  const tutos = await prisma.tutorial.findMany({
+    take: 4,
+  })
 
-export default function page() {
+  console.log(tutos)
+
   return (
     <div className="mt-[10vh] flex flex-col">
       <section className="container py-8 flex flex-col gap-6">
@@ -55,8 +41,14 @@ export default function page() {
           </div>
           <ScrollArea>
             <div className="flex space-x-4 pb-6">
-              {items.map((item) => (
-                <CardTuto key={item.label} label={item.label} />
+              {tutos.map((tuto) => (
+                <CardTuto
+                  key={tuto.id}
+                  title={tuto.title}
+                  description={tuto.description}
+                  href={tuto.title}
+                  category="Futur"
+                />
               ))}
             </div>
             <ScrollBar orientation="horizontal" />
@@ -80,8 +72,14 @@ export default function page() {
           </div>
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              {items.map((item) => (
-                <CardTuto key={item.label} label={item.label} />
+              {tutos.map((tuto) => (
+                <CardTuto
+                  key={tuto.id}
+                  title={tuto.title}
+                  description={tuto.description}
+                  href={tuto.title}
+                  category="Futur"
+                />
               ))}
             </div>
             <ScrollBar orientation="horizontal" />
@@ -103,8 +101,14 @@ export default function page() {
 
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              {items.map((item) => (
-                <CardTuto key={item.label} label={item.label} />
+              {tutos.map((tuto) => (
+                <CardTuto
+                  key={tuto.id}
+                  title={tuto.title}
+                  description={tuto.description}
+                  href={tuto.title}
+                  category="Futur"
+                />
               ))}
             </div>
             <ScrollBar orientation="horizontal" />

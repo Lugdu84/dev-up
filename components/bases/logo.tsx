@@ -11,7 +11,7 @@ export default function Logo({ hasSession, color = 'white' }: TlogoProps) {
     <Link
       href="/"
       className={cn(
-        'font-semibold uppercase text-foreground text-xl  hover:underline underline-offset-4',
+        'font-semibold uppercase text-foreground text-xl ml-2 md:ml-0 hover:underline underline-offset-4 flex-1',
         hasSession ? 'order-2' : 'order-1',
         color === 'white' ? 'text-background' : 'text-forground',
       )}
