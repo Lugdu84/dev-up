@@ -101,10 +101,8 @@ export default function UserCategorie() {
               </div>
               <h2 className="text-center text-lg mt-3">{title}</h2>
               {/* TODO: Gerer l'affichage d'une seule description (toutes sont affichées à l'heure actuelle) */}
-              {selectedCategory && (
-                <div
-                  className={`${bg} w-full rounded-b-2xl shadow-md md:hidden 2xl:w-3/5 2xl:flex p-5 2xl:justify-center 2xl:self-center`}
-                >
+              {isSelected && (
+                <div className={`${bg} w-full lg:hidden 2xl:w-3/5 p-5`}>
                   <p className="w-full">{description}</p>
                 </div>
               )}
