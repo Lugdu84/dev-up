@@ -5,6 +5,7 @@ import Image from 'next/image'
 type CardlinkProps = {
   href: string
   src: string
+  alt: string
   width: number
   height: number
   title: string
@@ -13,6 +14,7 @@ type CardlinkProps = {
 export default function Cardlink({
   href,
   src,
+  alt,
   width,
   height,
   title,
@@ -26,7 +28,7 @@ export default function Cardlink({
         <Image
           className="mb-3 object-cover"
           src={src}
-          alt="Un ordinateur avec du contenu affiché"
+          alt={alt}
           width={width}
           height={height}
         />

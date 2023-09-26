@@ -14,6 +14,7 @@ export default function RedirectToResources() {
           width={64}
           height={64}
           title="Consulter les tutos"
+          alt="Un ordinateur avec du contenu affiché"
         />
         <Cardlink
           href="/"
@@ -21,6 +22,7 @@ export default function RedirectToResources() {
           width={64}
           height={64}
           title="Foire aux questions"
+          alt="Questions/réponses"
         />
       </div>
     </div>
