@@ -9,7 +9,7 @@ export default function RedirectToResources() {
       </h2>
       <div className="flex flex-col items-center lg:flex-row justify-center xl:justify-around">
         <Cardlink
-          href="/resources"
+          href="/tutos"
           src="/assets/resource.png"
           width={64}
           height={64}
