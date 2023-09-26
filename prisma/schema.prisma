@@ -68,6 +68,9 @@ model Tutorial {
   image String?
   video String?
   tags String[]
+  published Boolean @default(false)
+  createdAt DateTime @default(now())
+  publishedAt DateTime?
   }
   
 enum Role {
