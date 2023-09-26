@@ -4,7 +4,7 @@ const currentYear = new Date().getFullYear()
 export const NAVBAR_LINKS: Array<TNavLinks> = [
   {
     label: 'Tutos',
-    href: '/resources',
+    href: '/tutos',
   },
   {
     label: 'Link 2',
