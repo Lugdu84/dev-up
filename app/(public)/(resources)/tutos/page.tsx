@@ -8,8 +8,17 @@ import prisma from '@/lib/prisma/prisma'
 
 export default async function page() {
   const tutos = await prisma.tutorial.findMany({
-    take: 4,
+    where: {
+      published: true,
+    },
+    orderBy: {
+      createdAt: 'asc',
+    },
   })
+
+  const APPRENTICE = tutos.filter((obj) => obj.level.includes('APPRENTICE'))
+  const NEWBIE = tutos.filter((obj) => obj.level.includes('NEWBIE'))
+  const JUNIOR = tutos.filter((obj) => obj.level.includes('JUNIOR'))
 
   return (
     <div className="mt-[10vh] flex flex-col">
@@ -33,24 +42,26 @@ export default async function page() {
               <h3 className="text-lg font-semibold tracking-tight">
                 FUTUR APPRENANT
               </h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground max-w-xs md:max-w-md">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               </p>
             </div>
-            <Button variant="link">
+            <Button variant="link" className="px-0">
               Voir Tout
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
           <ScrollArea>
             <div className="flex space-x-4 pb-6">
-              {tutos.map((tuto) => (
+              {NEWBIE.map((tuto) => (
                 <CardTuto
                   key={tuto.id}
                   title={tuto.title}
                   description={tuto.description}
                   href={tuto.title}
-                  category="Futur"
+                  tags={tuto.tags}
+                  image={tuto.image}
+                  video={tuto.video}
                 />
               ))}
             </div>
@@ -64,24 +75,26 @@ export default async function page() {
               <h3 className="text-lg font-semibold tracking-tight">
                 APPRENANT
               </h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground max-w-xs md:max-w-md">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               </p>
             </div>
-            <Button variant="link">
+            <Button variant="link" className="px-0">
               Voir Tout
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              {tutos.map((tuto) => (
+              {APPRENTICE.map((tuto) => (
                 <CardTuto
                   key={tuto.id}
                   title={tuto.title}
                   description={tuto.description}
                   href={tuto.title}
-                  category="Futur"
+                  tags={tuto.tags}
+                  image={tuto.image}
+                  video={tuto.video}
                 />
               ))}
             </div>
@@ -92,11 +105,11 @@ export default async function page() {
           <div className="flex items-center justify-between">
             <div className="mt-6 space-y-1 cursor-default">
               <h3 className="text-lg font-semibold tracking-tight">JUNIOR</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground max-w-xs md:max-w-md">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
               </p>
             </div>
-            <Button variant="link">
+            <Button variant="link" className="px-0">
               Voir Tout
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -104,13 +117,15 @@ export default async function page() {
 
           <ScrollArea>
             <div className="flex space-x-4 pb-4">
-              {tutos.map((tuto) => (
+              {JUNIOR.map((tuto) => (
                 <CardTuto
                   key={tuto.id}
                   title={tuto.title}
                   description={tuto.description}
                   href={tuto.title}
-                  category="Futur"
+                  tags={tuto.tags}
+                  image={tuto.image}
+                  video={tuto.video}
                 />
               ))}
             </div>
@@ -118,7 +133,7 @@ export default async function page() {
           </ScrollArea>
         </div>
       </section>
-      <section className="container py-8">
+      {/* <section className="container py-8">
         <div className="mt-6 space-y-1 cursor-default">
           <h2 className="text-2xl font-semibold tracking-tight">
             QUESTIONS / REPONSES
@@ -135,7 +150,7 @@ export default async function page() {
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
           </p>
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }
