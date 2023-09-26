@@ -1,5 +1,6 @@
 import React from 'react'
 import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import CardTuto from '@/components/widgets/card-tuto'
@@ -17,6 +18,10 @@ export default async function page() {
           <h2 className="text-2xl font-semibold tracking-tight">
             TUTORIEL / COURS
           </h2>
+          <Link href="/">
+            <Button type="button">Ajouter un tuto !</Button>
+          </Link>
+
           <p className="text-sm text-muted-foreground">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
           </p>
