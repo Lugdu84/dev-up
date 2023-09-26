@@ -1,7 +1,7 @@
 'use client'
 
-import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import React from 'react'
+import Video from './video'
 
 export default function Description() {
   return (
@@ -23,18 +23,10 @@ export default function Description() {
         </p>
       </div>
 
-      <div className="w-full h-auto">
-        <AspectRatio ratio={16 / 9}>
-          <iframe
-            width="100%"
-            height="100%"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-            title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          />
-        </AspectRatio>
-      </div>
+      <Video
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+        title="Rick Astley - Never Gonna Give You Up (Official Music Video)"
+      />
     </div>
   )
 }
