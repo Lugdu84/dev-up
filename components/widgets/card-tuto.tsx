@@ -22,7 +22,7 @@ export default function CardTuto({
 }: cardProps) {
   return (
     <>
-      <article className="overflow-hidden rounded-lg w-80 shadow transition hover:shadow-lg">
+      <article className="overflow-hidden rounded-lg col-span-1 shadow transition hover:shadow-lg">
         <Link href={`tuto/${href}`} className="w-full h-56">
           <AspectRatio ratio={16 / 9}>
             {video ? (
