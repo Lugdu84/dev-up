@@ -19,3 +19,10 @@ export type TUser = {
   image?: string | null | undefined
   name?: string | null | undefined
 }
+
+export type ErrorsTuto = {
+  title: string
+  desc: string
+  tags: string
+  level: string
+}
