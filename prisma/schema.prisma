@@ -39,15 +39,15 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
-  sessions      Session[] 
+  sessions      Session[]
   tutorials     Tutorial[]
-  role          Role      @default(USER)
+  role          Role       @default(USER)
   type          Level?
 }
 
@@ -55,24 +55,25 @@ model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
+
   @@unique([identifier, token])
 }
 
 model Tutorial {
-  id String   @id @default(cuid())
-  author User @relation(fields: [authorId], references: [id]  )
-  authorId String
-  title String
-  level Level[]
+  id          String    @id @default(cuid())
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    String
+  title       String
+  level       Level[]
   description String
-  image String?
-  video String?
-  tags String[]
-  published Boolean @default(false)
-  createdAt DateTime @default(now())
+  image       String?
+  video       String?
+  tags        String[]
+  published   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
   publishedAt DateTime?
-  }
-  
+}
+
 enum Role {
   USER
   MODERATOR
