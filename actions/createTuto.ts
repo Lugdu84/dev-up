@@ -26,6 +26,18 @@ const getTags = (e: FormData) => {
   return tags
 }
 
+const hasError = (errors: ErrorsTuto) => {
+  let bool = false
+  let key: keyof ErrorsTuto
+  for (key in errors) {
+    if (errors[key] !== '') {
+      bool = true
+      break
+    }
+  }
+  return bool
+}
+
 export const createTuto = async (e: FormData) => {
   const session = await getServerSession(options)
   let errors: ErrorsTuto = { title: '', desc: '', tags: '', level: '' }
@@ -48,7 +60,8 @@ export const createTuto = async (e: FormData) => {
   if (!tags.length)
     errors = { ...errors, tags: 'Veuillez définir au moins un tag' }
   console.log('errors', errors)
-  if (Object.keys(errors).length !== 0) return errors
+
+  if (hasError(errors)) return errors
   if (!session.user?.email) return
   const user = await prisma.user.findUnique({
     where: { email: session.user?.email },
