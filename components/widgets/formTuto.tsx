@@ -45,10 +45,6 @@ export default function FormTuto() {
       setErrors({ ...errors, desc: 'Veuillez définir une description' })
     }
   }
-
-  console.log(errors)
-  // T'es surveillé !! MDR J'ai vu ça !!!
-
   const router = useRouter()
   const handleCancel = () => {
     router.push('/')
