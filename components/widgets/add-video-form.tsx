@@ -10,7 +10,17 @@ export default function AddVideoForm() {
   const selectedLink = useRef<HTMLInputElement>(null)
 
   const getLink = () => {
-    setCurrentLink(selectedLink.current?.value)
+    // Je veux récupérer dans https://youtu.be/LKAQ5LNut8s?si=iod0iJ-Nbs3O3Alw la partie LKAQ5LNut8s
+
+    const link = selectedLink.current?.value
+    if (!link) return
+    const linkSplitted = link.split('/')
+    const linkId = linkSplitted[linkSplitted.length - 1]
+    const linkIdSplitted = linkId.split('?')
+    const linkIdFinal = linkIdSplitted[0]
+    const linkFinal = `https://www.youtube.com/embed/${linkIdFinal}`
+
+    setCurrentLink(linkFinal)
   }
   return (
     <div className="w-full mb-16">
