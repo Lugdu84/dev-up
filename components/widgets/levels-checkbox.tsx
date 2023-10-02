@@ -19,7 +19,6 @@ export default function LevelsCheckbox() {
   const handleLevelChange = (isChecked: CheckedState, level: string) => {
     let newSelectedLevels: string[] = []
     const updateParams = 'tutos'
-    
     if (selectedLevels.includes(level)) {
       newSelectedLevels = selectedLevels.filter((l) => l !== level)
     } else {
