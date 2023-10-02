@@ -65,9 +65,8 @@ type PageTutosProps = {
 }
 
 export default async function PageTutos({ searchParams }: PageTutosProps) {
-  const { levels } = searchParams
-  console.log(levels)
-  const tutos = await getTutos(levels)
+  const { levels, tags } = searchParams
+  const tutos = await getTutos(levels, tags)
   const tempTags = Array.from({ length: 50 }).map(
     (_, i, a) => `v1.2.0-beta.${a.length - i}`,
   )
