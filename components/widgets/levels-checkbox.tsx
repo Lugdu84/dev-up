@@ -1,10 +1,9 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { Type } from 'lucide-react'
+import { useState } from 'react'
 import { Level } from '@prisma/client'
 import { CheckedState } from '@radix-ui/react-checkbox'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import Checkbox from '../ui/checkbox'
 import { Label } from '../ui/label'
 
@@ -15,16 +14,12 @@ export default function LevelsCheckbox() {
     { name: Level.JUNIOR, text: 'Junior', checked: false },
     { name: Level.NEWBIE, text: 'Newbie', checked: false },
   ]
-  //   const [levelsParams, setLevelsParams] = useState(levels)
-  const refParams = useRef(levels)
-  const searchParams = useSearchParams()
   const router = useRouter()
 
   const handleLevelChange = (isChecked: CheckedState, level: string) => {
     let newSelectedLevels: string[] = []
     const updateParams = 'tutos'
-    // selectedLevels = [NEWBIE, JUNIOR]
-    // level = APPRENTICE
+    
     if (selectedLevels.includes(level)) {
       newSelectedLevels = selectedLevels.filter((l) => l !== level)
     } else {
@@ -33,8 +28,6 @@ export default function LevelsCheckbox() {
 
     // Mettre à jour les cases à cocher sélectionnées
     setSelectedLevels(newSelectedLevels)
-
-    console.log('in handleChange', newSelectedLevels)
 
     if (newSelectedLevels.length === 0) {
       router.push(updateParams)
