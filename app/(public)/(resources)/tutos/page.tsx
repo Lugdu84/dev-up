@@ -1,30 +1,74 @@
 import React from 'react'
 // import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { Level } from '@prisma/client'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import CardTuto from '@/components/widgets/card-tuto'
 import prisma from '@/lib/prisma/prisma'
 // import Combobox from '@/components/ui/combobox'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
+import LevelsCheckbox from '@/components/widgets/levels-checkbox'
 
-export default async function page() {
-  const tutos = await prisma.tutorial.findMany({
-    where: {
-      published: true,
+type whereObject = {
+  published: boolean
+  level: {
+    hasSome: Level[]
+  }
+  tags?: {
+    hasSome: string[]
+  }
+}
+
+async function getTutos(tags: string[] | string, levels: Level[] | Level) {
+  let levelArray
+  if (levels instanceof Array) {
+    levelArray = levels
+  } else if (levels !== undefined) {
+    levelArray = [levels]
+  }
+
+  let tagsArray
+  if (tags instanceof Array) {
+    tagsArray = tags
+  } else if (tags !== undefined) {
+    tagsArray = [tags]
+  }
+
+  const whereObj: whereObject = {
+    published: true,
+    level: {
+      hasSome: levelArray || [Level.NEWBIE, Level.APPRENTICE, Level.JUNIOR],
     },
+  }
+
+  // Ajouter la condition tags uniquement si tagsArray est défini
+  if (tagsArray) {
+    whereObj.tags = { hasSome: tagsArray }
+  }
+
+  const tutos = await prisma.tutorial.findMany({
+    where: whereObj,
+
     orderBy: {
       createdAt: 'asc',
     },
   })
+  return tutos
+}
 
-  // const APPRENTICE = tutos.filter((obj) => obj.level.includes('APPRENTICE'))
-  const NEWBIE = tutos.filter((obj) => obj.level.includes('NEWBIE'))
-  // const JUNIOR = tutos.filter((obj) => obj.level.includes('JUNIOR'))
+type PageTutosProps = {
+  searchParams: {
+    levels: Level[]
+    tags: string[]
+  }
+}
 
-  const tags = Array.from({ length: 50 }).map(
+export default async function PageTutos({ searchParams }: PageTutosProps) {
+  const { levels } = searchParams
+  console.log(levels)
+  const tutos = await getTutos(levels)
+  const tempTags = Array.from({ length: 50 }).map(
     (_, i, a) => `v1.2.0-beta.${a.length - i}`,
   )
 
@@ -46,30 +90,14 @@ export default async function page() {
         <h2 className="text-xl font-semibold">Liste des articles</h2>
         <div className="flex">
           <div className="w-80 border-r hidden md:flex flex-col gap-4">
-            <div className="flex flex-col">
-              <p className="text-lg mb-2 font-medium">Level</p>
-              <RadioGroup defaultValue="option-one">
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="option-one" id="option-one" />
-                  <Label htmlFor="option-one">Futur apprenant</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="option-two" id="option-two" />
-                  <Label htmlFor="option-two">Apprenant</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="option-three" id="option-three" />
-                  <Label htmlFor="option-three">Junior</Label>
-                </div>
-              </RadioGroup>
-            </div>
+            <LevelsCheckbox />
             <div className="mt-8">
               <h4 className="mb-4 text-lg font-medium leading-none">
                 Catégories
               </h4>
               <ScrollArea className="h-72 w-full rounded-md">
                 <div className="pr-4">
-                  {tags.map((tag) => (
+                  {tempTags.map((tag) => (
                     <>
                       <div key={tag} className="text-sm">
                         {tag}
@@ -99,7 +127,7 @@ export default async function page() {
           </Button> */}
             {/* </div> */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {NEWBIE.map((tuto) => (
+              {tutos.map((tuto) => (
                 <CardTuto
                   key={tuto.id}
                   title={tuto.title}
