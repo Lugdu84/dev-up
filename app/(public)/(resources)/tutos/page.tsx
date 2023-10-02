@@ -11,16 +11,46 @@ import prisma from '@/lib/prisma/prisma'
 import { Separator } from '@/components/ui/separator'
 import LevelsCheckbox from '@/components/widgets/levels-checkbox'
 
-async function getTutos(levels: [Level]) {
-  console.log('levels', levels)
+type whereObject = {
+  published: boolean
+  level: {
+    hasSome: Level[]
+  }
+  tags?: {
+    hasSome: string[]
+  }
+}
+
+async function getTutos(tags: string[] | string, levels: Level[] | Level) {
+  let levelArray
+  if (levels instanceof Array) {
+    levelArray = levels
+  } else if (levels !== undefined) {
+    levelArray = [levels]
+  }
+
+  let tagsArray
+  if (tags instanceof Array) {
+    tagsArray = tags
+  } else if (tags !== undefined) {
+    tagsArray = [tags]
+  }
+
+  const whereObj: whereObject = {
+    published: true,
+    level: {
+      hasSome: levelArray || [Level.NEWBIE, Level.APPRENTICE, Level.JUNIOR],
+    },
+  }
+
+  // Ajouter la condition tags uniquement si tagsArray est défini
+  if (tagsArray) {
+    whereObj.tags = { hasSome: tagsArray }
+  }
 
   const tutos = await prisma.tutorial.findMany({
-    where: {
-      published: true,
-      level: {
-        hasSome: levels || [Level.APPRENTICE],
-      },
-    },
+    where: whereObj,
+
     orderBy: {
       createdAt: 'asc',
     },
