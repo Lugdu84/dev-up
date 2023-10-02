@@ -24,8 +24,10 @@ export default async function NewTuto({ params }: NewTutoProps) {
 
   return (
     <div className="w-full h-screen flex flex-col items-center">
-      <div className="w-11/12">
-        <h1 className="w-full text-center text-xl my-8">{tuto.title}</h1>
+      <div className="w-11/12 md:w-7/12 lg:w-4/12 xl:w-3/12">
+        <h1 className="w-full text-center font-bold text-xl my-8">
+          {tuto.title}
+        </h1>
         <div className="flex border border-gray-500 rounded-xl bg-gray-200 p-2 min-h-[50px] shadow-md shadow-gray-300">
           <h2 className="underline">Niveau de difficulté:</h2>
           <ul className="ml-4">
@@ -47,12 +49,13 @@ export default async function NewTuto({ params }: NewTutoProps) {
           {tuto.description}
         </div>
       </div>
-      <span className="w-11/12 border border-gray-500 my-10" />
-      <div className="w-11/12">
-        <h2 className="w-full text-center text-lg mb-8">
-          Ajouter une vidéo/image
+      <span className="w-11/12 border border-gray-500 my-10 md:w-7/12 lg:w-4/12 xl:w-3/12" />
+      <div className="w-11/12 md:w-7/12 lg:w-4/12 xl:w-3/12">
+        <h2 className="w-full text-center text-lg mb-8 font-bold">
+          Ajout de média
         </h2>
         <AddVideoForm />
+        {/* <UploadFilesBox /> */}
       </div>
     </div>
   )
