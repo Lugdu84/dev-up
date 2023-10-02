@@ -1,10 +1,18 @@
 import type { TIconsFooter, TNavLinks, TLinkAuth } from '@/types/types'
 
 const currentYear = new Date().getFullYear()
+
+export const ROUTES: Record<string, { href: string; label: string }> = {
+  accueil: { href: '/', label: 'Accueil' },
+  tutos: { href: '/tutos', label: 'Tutos' },
+  login: { href: '/auth', label: 'Connexion' },
+  about: { href: '/about', label: 'À-propos' },
+}
+
 export const NAVBAR_LINKS: Array<TNavLinks> = [
   {
-    label: 'Tutos',
-    href: '/tutos',
+    label: ROUTES.tutos.label,
+    href: ROUTES.tutos.href,
   },
   {
     label: 'Link 2',
