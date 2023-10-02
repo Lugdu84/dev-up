@@ -20,7 +20,7 @@ type whereObject = {
   }
 }
 
-async function getTutos(tags: string[] | string, levels: Level[] | Level) {
+async function getTutos(levels: Level[] | Level, tags: string[] | string) {
   let levelArray
   if (levels instanceof Array) {
     levelArray = levels
