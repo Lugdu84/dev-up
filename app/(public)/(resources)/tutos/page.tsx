@@ -2,10 +2,8 @@ import React from 'react'
 import Link from 'next/link'
 import { Level } from '@prisma/client'
 import { Button } from '@/components/ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import CardTuto from '@/components/widgets/card-tuto'
 import prisma from '@/lib/prisma/prisma'
-import { Separator } from '@/components/ui/separator'
 import LevelsCheckbox from '@/components/widgets/levels-checkbox'
 
 type whereObject = {

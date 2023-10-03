@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 import { Level } from '@prisma/client'
 import { useRouter } from 'next/navigation'
-import { use } from 'chai'
 import Checkbox from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { ScrollArea } from '@/components/ui/scroll-area'
