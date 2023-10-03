@@ -1,3 +1,5 @@
+import { Level } from '@prisma/client'
+
 export type TNavLinks = {
   label: string
   href: string
@@ -25,4 +27,9 @@ export type ErrorsTuto = {
   desc: string
   tags: string
   level: string
+}
+
+export type LevelObject = {
+  name: Level
+  text: string
 }
