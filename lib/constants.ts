@@ -1,4 +1,10 @@
-import type { TIconsFooter, TNavLinks, TLinkAuth } from '@/types/types'
+import { Level } from '@prisma/client'
+import type {
+  TIconsFooter,
+  TNavLinks,
+  TLinkAuth,
+  LevelObject,
+} from '@/types/types'
 
 const currentYear = new Date().getFullYear()
 
@@ -82,4 +88,21 @@ export const LINKAUTH: Array<TLinkAuth> = [
     label: 'Profile',
     href: '/',
   },
+]
+
+export const ALL_TAGS = [
+  { name: 'javascript', text: 'Javascript' },
+  { name: 'react', text: 'React' },
+  { name: 'nextjs', text: 'NextJS' },
+  { name: 'typescript', text: 'TypeScript' },
+  { name: 'frontend', text: 'Frontend' },
+  { name: 'backend', text: 'Backend' },
+  { name: 'sql', text: 'SQL' },
+  { name: 'nosql', text: 'NoSQL' },
+]
+
+export const ALL_LEVELS: LevelObject[] = [
+  { name: Level.NEWBIE, text: 'Futur apprenant' },
+  { name: Level.APPRENTICE, text: 'Apprenant' },
+  { name: Level.JUNIOR, text: 'Junior' },
 ]

@@ -1,53 +1,91 @@
 'use client'
 
-import { useState } from 'react'
-import { Level } from '@prisma/client'
-import { CheckedState } from '@radix-ui/react-checkbox'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Checkbox from '../ui/checkbox'
-import { Label } from '../ui/label'
+import { ALL_LEVELS, ALL_TAGS } from '@/lib/constants'
+import Checkbox from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
+import { ScrollArea } from '@/components/ui/scroll-area'
+
+type Params = {
+  [key: string]: string[]
+}
 
 export default function LevelsCheckbox() {
   const [selectedLevels, setSelectedLevels] = useState<string[]>([])
-  const levels = [
-    { name: Level.NEWBIE, text: 'Futur apprenant', checked: false },
-    { name: Level.APPRENTICE, text: 'Apprenant', checked: false },
-    { name: Level.JUNIOR, text: 'Junior', checked: false },
-  ]
+  const [selectedTags, setSelectedTags] = useState<string[]>([])
+
   const router = useRouter()
+  const updateParams = 'tutos'
 
-  const handleLevelChange = (isChecked: CheckedState, level: string) => {
-    let newSelectedLevels: string[] = []
-    const updateParams = 'tutos'
-    if (selectedLevels.includes(level)) {
-      newSelectedLevels = selectedLevels.filter((l) => l !== level)
+  const updateSelect = (name: string, selectedTab: string[]) => {
+    let newTab: string[] = []
+    if (selectedTab.includes(name)) {
+      newTab = selectedTab.filter((l) => l !== name)
     } else {
-      newSelectedLevels = [...selectedLevels, level]
+      newTab = [...selectedTab, name]
     }
+    return newTab
+  }
 
-    // Mettre à jour les cases à cocher sélectionnées
-    setSelectedLevels(newSelectedLevels)
+  const updateRouter = (baseURL: string, params: Params) => {
+    let url = baseURL
+    const queryParams: string[] = []
+    Object.keys(params).forEach((key) => {
+      if (params[key].length > 0) {
+        queryParams.push(`${key}=${params[key].join(`&${key}=`)}`)
+      }
+    })
+    if (queryParams.length > 0) {
+      url += `?${queryParams.join('&')}`
+    }
+    router.push(url)
+  }
 
-    if (newSelectedLevels.length === 0) {
-      router.push(updateParams)
+  const handleLevelChange = (name: string, type: string) => {
+    if (type === 'levels') {
+      const newSelectedLevels = updateSelect(name, selectedLevels)
+      setSelectedLevels(newSelectedLevels)
     } else {
-      router.push(
-        `${updateParams}?levels=${newSelectedLevels.join('&levels=')}`,
-      )
+      const newSelectedTags = updateSelect(name, selectedTags)
+      setSelectedTags(newSelectedTags)
     }
   }
+
+  useEffect(() => {
+    updateRouter(updateParams, { levels: selectedLevels, tags: selectedTags })
+  }, [selectedLevels, selectedTags])
+
   return (
-    <div className="flex flex-col gap-2">
-      {levels.map((level) => (
-        <div className="flex gap-2" key={level.name}>
-          <Checkbox
-            name={level.name}
-            defaultChecked={level.checked}
-            onCheckedChange={(e) => handleLevelChange(e, level.name)}
-          />
-          <Label>{level.text}</Label>
-        </div>
-      ))}
+    <div className="flex flex-col w-full gap-2">
+      <h2 className="text-xl font-semibold">Votre niveau</h2>
+      <div className="flex flex-row sm:flex-col gap-2">
+        {ALL_LEVELS.map((level) => (
+          <div className="flex gap-2" key={level.name}>
+            <Checkbox
+              name={level.name}
+              onCheckedChange={() => handleLevelChange(level.name, 'levels')}
+            />
+            <Label>{level.text}</Label>
+          </div>
+        ))}
+      </div>
+      <div className="mt-8">
+        <h4 className="mb-2 text-l font-semibold">Catégories</h4>
+        <ScrollArea className="h-72 w-full rounded-md">
+          <div className="pr-4 flex flex-col gap-2">
+            {ALL_TAGS.map((tag) => (
+              <div className="flex gap-2" key={tag.name}>
+                <Checkbox
+                  name={tag.name}
+                  onCheckedChange={() => handleLevelChange(tag.name, 'tags')}
+                />
+                <Label>{tag.text}</Label>
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
+      </div>
     </div>
   )
 }
