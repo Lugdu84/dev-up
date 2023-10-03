@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Level } from '@prisma/client'
 import { useRouter } from 'next/navigation'
+import { use } from 'chai'
 import Checkbox from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -11,7 +12,7 @@ type Params = {
   [key: string]: string[]
 }
 
-const tempTags = [
+const tags = [
   { name: 'javascript', text: 'Javascript', checked: false },
   { name: 'react', text: 'React', checked: false },
   { name: 'nextjs', text: 'NextJS', checked: false },
@@ -74,7 +75,9 @@ export default function LevelsCheckbox() {
     }
   }
 
-  updateRouter(updateParams, { levels: selectedLevels, tags: selectedTags })
+  useEffect(() => {
+    updateRouter(updateParams, { levels: selectedLevels, tags: selectedTags })
+  }, [selectedLevels, selectedTags])
 
   return (
     <div className="flex flex-col w-full gap-2">
@@ -95,7 +98,7 @@ export default function LevelsCheckbox() {
         <h4 className="mb-2 text-l font-semibold">Catégories</h4>
         <ScrollArea className="h-72 w-full rounded-md">
           <div className="pr-4 flex flex-col gap-2">
-            {tempTags.map((tag) => (
+            {tags.map((tag) => (
               <div className="flex gap-2" key={tag.name}>
                 <Checkbox
                   name={tag.name}
