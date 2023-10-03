@@ -1,12 +1,10 @@
 import React from 'react'
-// import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { Level } from '@prisma/client'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import CardTuto from '@/components/widgets/card-tuto'
 import prisma from '@/lib/prisma/prisma'
-// import Combobox from '@/components/ui/combobox'
 import { Separator } from '@/components/ui/separator'
 import LevelsCheckbox from '@/components/widgets/levels-checkbox'
 
@@ -49,7 +47,6 @@ async function getTutos(levels: Level[] | Level, tags: string[] | string) {
 
   const tutos = await prisma.tutorial.findMany({
     where: whereObj,
-
     orderBy: {
       createdAt: 'asc',
     },
@@ -59,8 +56,8 @@ async function getTutos(levels: Level[] | Level, tags: string[] | string) {
 
 type PageTutosProps = {
   searchParams: {
-    levels: Level[]
-    tags: string[]
+    levels: Level[] | Level
+    tags: string[] | string
   }
 }
 

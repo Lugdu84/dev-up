@@ -10,9 +10,9 @@ import { Label } from '../ui/label'
 export default function LevelsCheckbox() {
   const [selectedLevels, setSelectedLevels] = useState<string[]>([])
   const levels = [
-    { name: Level.APPRENTICE, text: 'Apprentice', checked: false },
+    { name: Level.NEWBIE, text: 'Futur apprenant', checked: false },
+    { name: Level.APPRENTICE, text: 'Apprenant', checked: false },
     { name: Level.JUNIOR, text: 'Junior', checked: false },
-    { name: Level.NEWBIE, text: 'Newbie', checked: false },
   ]
   const router = useRouter()
 
