@@ -63,9 +63,6 @@ type PageTutosProps = {
 export default async function PageTutos({ searchParams }: PageTutosProps) {
   const { levels, tags } = searchParams
   const tutos = await getTutos(levels, tags)
-  const tempTags = Array.from({ length: 50 }).map(
-    (_, i, a) => `v1.2.0-beta.${a.length - i}`,
-  )
 
   return (
     <div className="mt-[10vh] flex flex-col">
@@ -84,23 +81,6 @@ export default async function PageTutos({ searchParams }: PageTutosProps) {
       <section className="container py-8 flex flex-col sm:flex-row gap-6">
         <div className="w-80 sm:border-r flex flex-col gap-4">
           <LevelsCheckbox />
-          <div className="mt-8">
-            <h4 className="mb-4 text-lg font-medium leading-none">
-              Catégories
-            </h4>
-            <ScrollArea className="h-72 w-full rounded-md">
-              <div className="pr-4">
-                {tempTags.map((tag) => (
-                  <>
-                    <div key={tag} className="text-sm">
-                      {tag}
-                    </div>
-                    <Separator className="my-2" />
-                  </>
-                ))}
-              </div>
-            </ScrollArea>
-          </div>
         </div>
         <div className="md:ml-6 w-full">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
