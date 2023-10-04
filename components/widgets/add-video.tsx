@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { addVideo } from '@/actions/tuto'
+import { addVideo } from '@/server/tuto'
 
 type AddVideoProps = {
   tutoId: string

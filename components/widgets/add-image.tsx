@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
-// import Image from 'next/image'
-// import Link from 'next/link'
-// import { DialogClose } from '@radix-ui/react-dialog'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import Image from 'next/image'
+
+import { Button } from '@/components/ui/button'
+// eslint-disable-next-line import/extensions
+import '@uploadthing/react/styles.css'
 // import Video from './video'
 import {
   Dialog,
@@ -16,21 +16,51 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import { addFile, addFileFromUrl } from '@/server/uploadthing'
+import { addImage } from '@/server/tuto'
 
 type AddVideoProps = {
   tutoId: string
 }
 
 export default function AddImage({ tutoId }: AddVideoProps) {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
-  const handleSubmit = () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    if (!previewUrl) {
+      setError('Vous devez ajouter une image')
+      return
+    }
+    setIsLoading(true)
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const response = await addFile(formData)
+    console.log(response.url)
+    await addImage(response.url!, tutoId)
+    setIsLoading(false)
     setOpen(false)
+    reset()
+  }
+
+  const reset = () => {
+    setOpen(false)
+    setPreviewUrl(null)
+    setError(null)
   }
 
   const handleCancel = () => {
-    setOpen(false)
-    setError(null)
+    reset()
+  }
+
+  const handleInputFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length !== 1) {
+      setError('Vous devez ajouter une image')
+      return
+    }
+    const newFile = e.target.files[0]
+    setPreviewUrl(URL.createObjectURL(newFile))
   }
 
   return (
@@ -52,7 +82,20 @@ export default function AddImage({ tutoId }: AddVideoProps) {
               </DialogDescription>
             </DialogHeader>
             <div className="w-full grid gap-4 py-4">
-              <div className="w-full">IMAGE</div>
+              <form id="inputForm" onSubmit={handleSubmit}>
+                <input
+                  type="file"
+                  name="file"
+                  onChange={handleInputFileChange}
+                />
+              </form>
+
+              <Image
+                src={previewUrl || '/assets/media.png'}
+                alt="preview upload image"
+                width={100}
+                height={60}
+              />
               {error && <div className="w-full text-red-500">{error}</div>}
             </div>
             <DialogFooter className="flex gap-4">
@@ -64,11 +107,11 @@ export default function AddImage({ tutoId }: AddVideoProps) {
                 Annuler
               </Button>
               <Button
-                onClick={handleSubmit}
-                type="submit"
+                form="inputForm"
+                disabled={!previewUrl}
                 className="my-3 bg-green-500 text-lg w-full lg:w-2/5 lg:my-0"
               >
-                Ajouter
+                {isLoading ? 'Upload...' : 'Ajouter'}
               </Button>
             </DialogFooter>
           </DialogContent>

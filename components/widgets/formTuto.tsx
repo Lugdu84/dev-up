@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/bases/checkbox'
-import { createTuto } from '@/actions/createTuto'
+import { createTuto } from '@/server/createTuto'
 import { ErrorsTuto } from '@/types/types'
 import { ALL_TAGS, ALL_LEVELS } from '@/lib/constants'
 
