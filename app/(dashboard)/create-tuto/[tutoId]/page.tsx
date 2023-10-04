@@ -4,7 +4,6 @@ import Image from 'next/image'
 import prisma from '@/lib/prisma/prisma'
 import TutoHeader from '@/components/widgets/tuto-header'
 import AddVideo from '@/components/widgets/add-video'
-import Video from '@/components/widgets/video'
 import AddText from '@/components/widgets/add-text'
 import EditTutoHeader from '@/components/widgets/edit-tuto-header'
 import AddImage from '@/components/widgets/add-image'
@@ -36,7 +35,7 @@ export default async function NewTuto({ params }: NewTutoProps) {
       <div className="w-11/12">
         <h2 className="w-full text-center text-lg mb-2">Ajouter un média</h2>
         <AddVideo tutoId={id} />
-        <AddImage tutoId={id} />
+        <AddImage tutoId={id} image={image} />
       </div>
       {/* Preview */}
       <div className="w-11/12 border p-4 border-black">

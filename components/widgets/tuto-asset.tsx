@@ -9,14 +9,13 @@ type TutoAssetProps = {
 }
 
 export default function TutoAsset({ video, image, title }: TutoAssetProps) {
-  console.log('image', image)
   return (
     <div>
       {video && <Video title={title} src={video} />}
       {image && (
         <AspectRatio ratio={16 / 9}>
           <Image
-            src={image}
+            src={`https://utfs.io/f/${image}`}
             fill
             alt={title}
             loading="lazy"

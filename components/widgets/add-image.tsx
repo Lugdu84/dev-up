@@ -16,14 +16,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { addFile, addFileFromUrl } from '@/server/uploadthing'
+import { addFile, deleteFile } from '@/server/uploadthing'
 import { addImage } from '@/server/tuto'
 
 type AddVideoProps = {
   tutoId: string
+  image: string | null
 }
 
-export default function AddImage({ tutoId }: AddVideoProps) {
+export default function AddImage({ tutoId, image }: AddVideoProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -37,7 +38,10 @@ export default function AddImage({ tutoId }: AddVideoProps) {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const response = await addFile(formData)
-    await addImage(response.url!, tutoId)
+    if (image) {
+      deleteFile(image)
+    }
+    await addImage(response.image!, tutoId)
     setIsLoading(false)
     setOpen(false)
     reset()
@@ -65,7 +69,6 @@ export default function AddImage({ tutoId }: AddVideoProps) {
   return (
     <div className="w-full">
       <div className="w-full flex flex-col items-center">
-        {/* Ajout vidéo */}
         <Dialog open={open}>
           <DialogTrigger className="w-full mb-5" asChild>
             <Button onClick={() => setOpen(true)} variant="outline">

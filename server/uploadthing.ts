@@ -12,8 +12,8 @@ export const deleteFile = async (fileId: string) => {
 export const addFile = async (formData: FormData) => {
   const file = formData.get('file')
   const response = await utapi.uploadFiles([file])
-  const url = response[0].data?.url
-  return { success: true, message: 'File added', url }
+  const image = response[0].data?.key
+  return { success: true, message: 'File added', image }
 }
 
 export const addFileFromUrl = async (url: string) => {
