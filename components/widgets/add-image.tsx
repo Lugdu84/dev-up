@@ -16,33 +16,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { addVideo } from '@/actions/tuto'
 
 type AddVideoProps = {
   tutoId: string
 }
 
-export default function AddVideo({ tutoId }: AddVideoProps) {
-  const selectedLink = useRef<HTMLInputElement>(null)
+export default function AddImage({ tutoId }: AddVideoProps) {
   const [error, setError] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
   const handleSubmit = () => {
-    const link = getLink()
-    if (!link) return
     setOpen(false)
-    addVideo(link, tutoId)
-  }
-
-  const getLink = () => {
-    const link = selectedLink.current?.value
-    if (!link) {
-      setError('Veuillez entrer un lien')
-      return
-    }
-    setError(null)
-    const linkSplitted = link.split('=')
-    // eslint-disable-next-line consistent-return
-    return `https://www.youtube.com/embed/${linkSplitted[1]}`
   }
 
   const handleCancel = () => {
@@ -51,33 +34,25 @@ export default function AddVideo({ tutoId }: AddVideoProps) {
   }
 
   return (
-    <div className="w-full mb-16">
+    <div className="w-full">
       <div className="w-full flex flex-col items-center">
         {/* Ajout vidéo */}
         <Dialog open={open}>
           <DialogTrigger className="w-full mb-5" asChild>
             <Button onClick={() => setOpen(true)} variant="outline">
-              Ajouter une vidéo
+              Ajouter une image
             </Button>
           </DialogTrigger>
           <DialogContent className="w-11/12">
             <DialogHeader>
-              <DialogTitle>Ajouter une vidéo</DialogTitle>
+              <DialogTitle>Ajouter une image</DialogTitle>
               <DialogDescription>
                 Pour ajouter une vidéo Youtube, clique droit sur la vidéo et
                 cliquer sur &ldquo;copier l&apos;url de la vidéo&ldquo;
               </DialogDescription>
             </DialogHeader>
             <div className="w-full grid gap-4 py-4">
-              <div className="w-full">
-                <Input
-                  name="src"
-                  className="w-full 2xl:text-lg"
-                  type="text"
-                  placeholder="Lien de la vidéo"
-                  ref={selectedLink}
-                />
-              </div>
+              <div className="w-full">IMAGE</div>
               {error && <div className="w-full text-red-500">{error}</div>}
             </div>
             <DialogFooter className="flex gap-4">

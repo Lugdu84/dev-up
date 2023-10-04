@@ -48,7 +48,7 @@ export default function AddVideo({ tutoId }: AddVideoProps) {
   }
 
   return (
-    <div className="w-full mb-16">
+    <div className="w-full">
       <div className="w-full flex flex-col items-center">
         {/* Ajout vidéo */}
         <Dialog open={open}>

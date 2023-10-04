@@ -5,9 +5,9 @@ import prisma from '@/lib/prisma/prisma'
 import TutoHeader from '@/components/widgets/tuto-header'
 import AddVideo from '@/components/widgets/add-video'
 import Video from '@/components/widgets/video'
-import AddImg from '@/components/widgets/add-img'
 import AddText from '@/components/widgets/add-text'
 import EditTutoHeader from '@/components/widgets/edit-tuto-header'
+import AddImage from '@/components/widgets/add-image'
 
 type NewTutoProps = {
   params: {
@@ -33,8 +33,9 @@ export default async function NewTuto({ params }: NewTutoProps) {
     <div className="w-full h-screen flex flex-col items-center">
       <span className="w-11/12 border border-gray-500 my-10" />
       <div className="w-11/12">
-        <h2 className="w-full text-center text-lg mb-8">Ajouter un média</h2>
+        <h2 className="w-full text-center text-lg mb-2">Ajouter un média</h2>
         <AddVideo tutoId={id} />
+        <AddImage tutoId={id} />
       </div>
       {/* Preview */}
       <div className="w-11/12 border p-4 border-black">
@@ -52,7 +53,7 @@ export default async function NewTuto({ params }: NewTutoProps) {
         ) : (
           <Video title={title} src={video} />
         )}
-        <AddImg />
+
         <AddText />
       </div>
       <div className="w-11/12 border p-4 border-black">
