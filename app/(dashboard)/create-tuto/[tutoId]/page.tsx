@@ -4,6 +4,7 @@ import Image from 'next/image'
 import prisma from '@/lib/prisma/prisma'
 import TutoHeader from '@/components/widgets/tuto-header'
 import AddVideo from '@/components/widgets/add-video'
+import Video from '@/components/widgets/video'
 import AddImg from '@/components/widgets/add-img'
 import AddText from '@/components/widgets/add-text'
 import EditTutoHeader from '@/components/widgets/edit-tuto-header'
@@ -26,61 +27,45 @@ export default async function NewTuto({ params }: NewTutoProps) {
   if (!tuto) {
     return <div>error</div>
   }
+  const { title, video, level, tags, description, id } = tuto
 
   return (
     <div className="w-full h-screen flex flex-col items-center">
-      {/* <div className="w-11/12">
-        <h1 className="w-full text-center text-xl my-8">{tuto.title}</h1>
-        <div className="flex border border-gray-500 rounded-xl bg-gray-200 p-2 min-h-[50px] shadow-md shadow-gray-300">
-          <h2 className="underline">Niveau de difficulté:</h2>
-          <ul className="ml-4">
-            {tuto.level.map((level: string, index: number) => (
-              <li key={index}>{level}</li>
-            ))}
-          </ul>
-        </div>
-        <div className="flex my-6  border border-gray-500 rounded-xl bg-gray-200 p-2 shadow-md shadow-gray-300">
-          <h2 className="underline">Catégories relatives:</h2>
-          <ul className="ml-4">
-            {tuto.tags.map((tag: string, index: number) => (
-              <li key={index}>{tag}</li>
-            ))}
-          </ul>
-        </div>
-        <div className=" border border-gray-500 rounded-xl bg-gray-200 p-2 shadow-md shadow-gray-300">
-          <h2 className="mb-2 underline">Description du tuto:</h2>
-          {tuto.description}
-        </div>
-      </div> */}
       <span className="w-11/12 border border-gray-500 my-10" />
       <div className="w-11/12">
         <h2 className="w-full text-center text-lg mb-8">Ajouter un média</h2>
-        <AddVideo />
-        <AddImg />
-        <AddText />
+        <AddVideo tutoId={id} />
       </div>
       {/* Preview */}
       <div className="w-11/12 border p-4 border-black">
-        <div className=" relative">
-          <TutoHeader title={tuto.title} levels={tuto.level} tags={tuto.tags} />
-          <div className="absolute right-0 top-6">
-            <EditTutoHeader
-              description={tuto.description}
-              title={tuto.title}
-              levels={tuto.level}
-              tags={tuto.tags}
+        <TutoHeader title={title} levels={level} tags={tags} />
+        {!video ? (
+          <div className="border border-gray-500 bg-gray-200 h-64 flex flex-col items-center justify-center">
+            <h3 className="mb-8">Votre média</h3>
+            <Image
+              src="/assets/media.png"
+              alt="Un média"
+              width={60}
+              height={60}
             />
           </div>
-        </div>
-
-        <div className="border border-gray-500 bg-gray-200 h-64 flex flex-col items-center justify-center">
-          <h3 className="mb-8">Votre média</h3>
-          <Image
-            src="/assets/media.png"
-            alt="Un média"
-            width={60}
-            height={60}
-          />
+        ) : (
+          <Video title={title} src={video} />
+        )}
+        <AddImg />
+        <AddText />
+      </div>
+      <div className="w-11/12 border p-4 border-black">
+        <div className=" relative">
+          <TutoHeader title={title} levels={level} tags={tags} />
+          <div className="absolute right-0 top-6">
+            <EditTutoHeader
+              description={description}
+              title={title}
+              levels={level}
+              tags={tags}
+            />
+          </div>
         </div>
         <div className="w-full flex flex-col">
           <p className="mt-4">

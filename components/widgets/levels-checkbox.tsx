@@ -66,7 +66,7 @@ export default function LevelsCheckbox() {
               name={level.name}
               onCheckedChange={() => handleLevelChange(level.name, 'levels')}
             />
-            <Label>{level.text}</Label>
+            <Label htmlFor={level.name}>{level.text}</Label>
           </div>
         ))}
       </div>
@@ -80,7 +80,7 @@ export default function LevelsCheckbox() {
                   name={tag.name}
                   onCheckedChange={() => handleLevelChange(tag.name, 'tags')}
                 />
-                <Label>{tag.text}</Label>
+                <Label htmlFor={tag.name}>{tag.text}</Label>
               </div>
             ))}
           </div>

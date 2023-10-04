@@ -1,9 +1,12 @@
 'use client'
 
-
 import React, { useRef, useState } from 'react'
+// import Image from 'next/image'
+// import Link from 'next/link'
+// import { DialogClose } from '@radix-ui/react-dialog'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
+// import Video from './video'
 import {
   Dialog,
   DialogContent,
@@ -23,12 +26,11 @@ export default function AddVideo({ tutoId }: AddVideoProps) {
   const selectedLink = useRef<HTMLInputElement>(null)
   const [error, setError] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
-
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     const link = getLink()
     if (!link) return
     setOpen(false)
-    await addVideo(link, tutoId)
+    addVideo(link, tutoId)
   }
 
   const getLink = () => {
