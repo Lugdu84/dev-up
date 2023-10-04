@@ -16,7 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { addVideo } from '@/lib/prisma/tuto'
+import { addVideo } from '@/actions/tuto'
 
 type AddVideoProps = {
   tutoId: string
@@ -26,11 +26,11 @@ export default function AddVideo({ tutoId }: AddVideoProps) {
   const selectedLink = useRef<HTMLInputElement>(null)
   const [error, setError] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const link = getLink()
     if (!link) return
     setOpen(false)
-    addVideo(link, tutoId)
+    await addVideo(link, tutoId)
   }
 
   const getLink = () => {

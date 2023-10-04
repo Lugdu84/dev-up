@@ -16,7 +16,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { addVideo } from '@/lib/prisma/tuto'
+import { addVideo } from '@/actions/tuto'
 
 type AddVideoProps = {
   tutoId: string
