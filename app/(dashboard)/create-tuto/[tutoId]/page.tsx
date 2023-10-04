@@ -2,9 +2,9 @@
 import React from 'react'
 import Image from 'next/image'
 import prisma from '@/lib/prisma/prisma'
-import AddMedia from '@/components/widgets/add-media'
 import TutoHeader from '@/components/widgets/tuto-header'
 import AddVideo from '@/components/widgets/add-video'
+import Video from '@/components/widgets/video'
 
 type NewTutoProps = {
   params: {
@@ -24,6 +24,7 @@ export default async function NewTuto({ params }: NewTutoProps) {
   if (!tuto) {
     return <div>error</div>
   }
+  const { title, video, level, tags, id } = tuto
 
   return (
     <div className="w-full h-screen flex flex-col items-center">
@@ -53,20 +54,25 @@ export default async function NewTuto({ params }: NewTutoProps) {
       <span className="w-11/12 border border-gray-500 my-10" />
       <div className="w-11/12">
         <h2 className="w-full text-center text-lg mb-8">Ajouter un média</h2>
-        <AddVideo />
+        <AddVideo tutoId={id} />
       </div>
       {/* Preview */}
       <div className="w-11/12 border p-4 border-black">
-        <TutoHeader title={tuto.title} levels={tuto.level} tags={tuto.tags} />
-        <div className="border border-gray-500 bg-gray-200 h-64 flex flex-col items-center justify-center">
-          <h3 className="mb-8">Votre média</h3>
-          <Image
-            src="/assets/media.png"
-            alt="Un média"
-            width={60}
-            height={60}
-          />
-        </div>
+        <TutoHeader title={title} levels={level} tags={tags} />
+        {!video ? (
+          <div className="border border-gray-500 bg-gray-200 h-64 flex flex-col items-center justify-center">
+            <h3 className="mb-8">Votre média</h3>
+            <Image
+              src="/assets/media.png"
+              alt="Un média"
+              width={60}
+              height={60}
+            />
+          </div>
+        ) : (
+          <Video title={title} src={video} />
+        )}
+
         <div className="w-full flex flex-col">
           <p className="mt-4">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,
