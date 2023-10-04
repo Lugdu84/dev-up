@@ -37,7 +37,6 @@ export default function AddImage({ tutoId }: AddVideoProps) {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const response = await addFile(formData)
-    console.log(response.url)
     await addImage(response.url!, tutoId)
     setIsLoading(false)
     setOpen(false)

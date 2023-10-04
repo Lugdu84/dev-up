@@ -7,7 +7,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['plus.unsplash.com'],
+    domains: ['utfs.io'],
   },
 }
 
