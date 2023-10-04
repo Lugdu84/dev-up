@@ -91,18 +91,18 @@ export const LINKAUTH: Array<TLinkAuth> = [
 ]
 
 export const ALL_TAGS = [
-  { name: 'javascript', text: 'Javascript' },
-  { name: 'react', text: 'React' },
-  { name: 'nextjs', text: 'NextJS' },
-  { name: 'typescript', text: 'TypeScript' },
-  { name: 'frontend', text: 'Frontend' },
-  { name: 'backend', text: 'Backend' },
-  { name: 'sql', text: 'SQL' },
-  { name: 'nosql', text: 'NoSQL' },
+  { name: 'javascript', text: ' Javascript' },
+  { name: 'react', text: ' React' },
+  { name: 'nextjs', text: ' NextJS' },
+  { name: 'typescript', text: ' TypeScript' },
+  { name: 'frontend', text: ' Frontend' },
+  { name: 'backend', text: ' Backend' },
+  { name: 'sql', text: ' SQL' },
+  { name: 'nosql', text: ' NoSQL' },
 ]
 
 export const ALL_LEVELS: LevelObject[] = [
-  { name: Level.NEWBIE, text: 'Futur apprenant' },
-  { name: Level.APPRENTICE, text: 'Apprenant' },
-  { name: Level.JUNIOR, text: 'Junior' },
+  { name: Level.NEWBIE, text: ' Futur apprenant' },
+  { name: Level.APPRENTICE, text: ' Apprenant' },
+  { name: Level.JUNIOR, text: ' Junior' },
 ]
