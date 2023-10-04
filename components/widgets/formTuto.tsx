@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import Checkbox from '@/components/bases/checkbox'
 import { createTuto } from '@/actions/createTuto'
 import { ErrorsTuto } from '@/types/types'
+import { ALL_TAGS, ALL_LEVELS } from '@/lib/constants'
 
 const defaultErrors: ErrorsTuto = {
   title: '',
@@ -67,19 +68,18 @@ export default function FormTuto() {
       )}
       <h2 className="mt-6">Votre niveau (plusieurs choix possibles)</h2>
       <div className="my-2 p-1 flex flex-col">
-        <Checkbox name="newbie" text=" newbie" />
-        <Checkbox name="apprentice" text=" apprentice" />
-        <Checkbox name="junior" text=" junior" />
+        {ALL_LEVELS.map((level) => (
+          <Checkbox key={level.name} name={level.name} text={level.text} />
+        ))}
       </div>
       {errors.level && (
         <div className="text-sm text-red-500 ml-1">{errors.level}</div>
       )}
       <h2 className="mt-6">Tags (plusieurs choix possibles)</h2>
       <div className="my-2 p-1 flex flex-col">
-        <Checkbox name="html" text=" HTML" />
-        <Checkbox name="javascript" text=" JavaScript" />
-        <Checkbox name="typescript" text=" Typescript" />
-        <Checkbox name="tailwind" text=" Tailwind" />
+        {ALL_TAGS.map((tag) => (
+          <Checkbox key={tag.name} name={tag.name} text={tag.text} />
+        ))}
       </div>
       {errors.tags && (
         <div className="text-sm text-red-500 ml-1">{errors.tags}</div>

@@ -12,11 +12,23 @@ export default function TutoHeader({ title, levels, tags }: tutoHeaderProps) {
     <>
       <div className="w-full flex justify-between">
         <h2 className="font-bold">{title}</h2>
-        <h3>{levels}</h3>
+        <ul>
+          {levels.map((level: Level) => (
+            <li key={level} className="mr-2">
+              {level}
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul className="w-full flex mt-2 mb-4">
-        <li className="mr-2">{tags}</li>
-      </ul>
+      <div className="flex justify-between">
+        <ul className="w-4/5 flex mt-2 mb-4">
+          {tags.map((tag: string) => (
+            <li key={tag} className="mr-2">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   )
 }

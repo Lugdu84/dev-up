@@ -2,8 +2,11 @@
 import React from 'react'
 import Image from 'next/image'
 import prisma from '@/lib/prisma/prisma'
-import AddMedia from '@/components/widgets/add-media'
 import TutoHeader from '@/components/widgets/tuto-header'
+import AddVideo from '@/components/widgets/add-video'
+import AddImg from '@/components/widgets/add-img'
+import AddText from '@/components/widgets/add-text'
+import EditTutoHeader from '@/components/widgets/edit-tuto-header'
 
 type NewTutoProps = {
   params: {
@@ -52,11 +55,24 @@ export default async function NewTuto({ params }: NewTutoProps) {
       <span className="w-11/12 border border-gray-500 my-10" />
       <div className="w-11/12">
         <h2 className="w-full text-center text-lg mb-8">Ajouter un média</h2>
-        <AddMedia />
+        <AddVideo />
+        <AddImg />
+        <AddText />
       </div>
       {/* Preview */}
       <div className="w-11/12 border p-4 border-black">
-        <TutoHeader title={tuto.title} levels={tuto.level} tags={tuto.tags} />
+        <div className=" relative">
+          <TutoHeader title={tuto.title} levels={tuto.level} tags={tuto.tags} />
+          <div className="absolute right-0 top-6">
+            <EditTutoHeader
+              description={tuto.description}
+              title={tuto.title}
+              levels={tuto.level}
+              tags={tuto.tags}
+            />
+          </div>
+        </div>
+
         <div className="border border-gray-500 bg-gray-200 h-64 flex flex-col items-center justify-center">
           <h3 className="mb-8">Votre média</h3>
           <Image
