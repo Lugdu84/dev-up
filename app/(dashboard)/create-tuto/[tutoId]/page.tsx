@@ -4,10 +4,10 @@ import Image from 'next/image'
 import prisma from '@/lib/prisma/prisma'
 import TutoHeader from '@/components/widgets/tuto-header'
 import AddVideo from '@/components/widgets/add-video'
-import Video from '@/components/widgets/video'
-import AddImg from '@/components/widgets/add-img'
 import AddText from '@/components/widgets/add-text'
 import EditTutoHeader from '@/components/widgets/edit-tuto-header'
+import AddImage from '@/components/widgets/add-image'
+import TutoAsset from '@/components/widgets/tuto-asset'
 
 type NewTutoProps = {
   params: {
@@ -27,19 +27,20 @@ export default async function NewTuto({ params }: NewTutoProps) {
   if (!tuto) {
     return <div>error</div>
   }
-  const { title, video, level, tags, description, id } = tuto
+  const { title, video, level, tags, description, image, id } = tuto
 
   return (
     <div className="w-full h-screen flex flex-col items-center">
       <span className="w-11/12 border border-gray-500 my-10" />
       <div className="w-11/12">
-        <h2 className="w-full text-center text-lg mb-8">Ajouter un média</h2>
+        <h2 className="w-full text-center text-lg mb-2">Ajouter un média</h2>
         <AddVideo tutoId={id} />
+        <AddImage tutoId={id} image={image} />
       </div>
       {/* Preview */}
       <div className="w-11/12 border p-4 border-black">
         <TutoHeader title={title} levels={level} tags={tags} />
-        {!video ? (
+        {!video && !image ? (
           <div className="border border-gray-500 bg-gray-200 h-64 flex flex-col items-center justify-center">
             <h3 className="mb-8">Votre média</h3>
             <Image
@@ -50,9 +51,9 @@ export default async function NewTuto({ params }: NewTutoProps) {
             />
           </div>
         ) : (
-          <Video title={title} src={video} />
+          <TutoAsset title={title} video={video} image={image} />
         )}
-        <AddImg />
+
         <AddText />
       </div>
       <div className="w-11/12 border p-4 border-black">

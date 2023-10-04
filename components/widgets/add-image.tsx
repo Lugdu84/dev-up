@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
-// import Image from 'next/image'
-// import Link from 'next/link'
-// import { DialogClose } from '@radix-ui/react-dialog'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import Image from 'next/image'
+
+import { Button } from '@/components/ui/button'
+// eslint-disable-next-line import/extensions
+import '@uploadthing/react/styles.css'
 // import Video from './video'
 import {
   Dialog,
@@ -16,68 +16,88 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { addVideo } from '@/actions/tuto'
+import { addFile, deleteFile } from '@/server/uploadthing'
+import { addImage } from '@/server/tuto'
 
 type AddVideoProps = {
   tutoId: string
+  image: string | null
 }
 
-export default function AddVideo({ tutoId }: AddVideoProps) {
-  const selectedLink = useRef<HTMLInputElement>(null)
+export default function AddImage({ tutoId, image }: AddVideoProps) {
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [open, setOpen] = useState(false)
-  const handleSubmit = () => {
-    const link = getLink()
-    if (!link) return
-    setOpen(false)
-    addVideo(link, tutoId)
-  }
-
-  const getLink = () => {
-    const link = selectedLink.current?.value
-    if (!link) {
-      setError('Veuillez entrer un lien')
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    if (!previewUrl) {
+      setError('Vous devez ajouter une image')
       return
     }
+    setIsLoading(true)
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const response = await addFile(formData)
+    if (image) {
+      deleteFile(image)
+    }
+    await addImage(response.image!, tutoId)
+    setIsLoading(false)
+    setOpen(false)
+    reset()
+  }
+
+  const reset = () => {
+    setOpen(false)
+    setPreviewUrl(null)
     setError(null)
-    const linkSplitted = link.split('=')
-    // eslint-disable-next-line consistent-return
-    return `https://www.youtube.com/embed/${linkSplitted[1]}`
   }
 
   const handleCancel = () => {
-    setOpen(false)
-    setError(null)
+    reset()
+  }
+
+  const handleInputFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length !== 1) {
+      setError('Vous devez ajouter une image')
+      return
+    }
+    const newFile = e.target.files[0]
+    setPreviewUrl(URL.createObjectURL(newFile))
   }
 
   return (
-    <div className="w-full mb-16">
+    <div className="w-full">
       <div className="w-full flex flex-col items-center">
-        {/* Ajout vidéo */}
         <Dialog open={open}>
           <DialogTrigger className="w-full mb-5" asChild>
             <Button onClick={() => setOpen(true)} variant="outline">
-              Ajouter une vidéo
+              Ajouter une image
             </Button>
           </DialogTrigger>
           <DialogContent className="w-11/12">
             <DialogHeader>
-              <DialogTitle>Ajouter une vidéo</DialogTitle>
+              <DialogTitle>Ajouter une image</DialogTitle>
               <DialogDescription>
                 Pour ajouter une vidéo Youtube, clique droit sur la vidéo et
                 cliquer sur &ldquo;copier l&apos;url de la vidéo&ldquo;
               </DialogDescription>
             </DialogHeader>
             <div className="w-full grid gap-4 py-4">
-              <div className="w-full">
-                <Input
-                  name="src"
-                  className="w-full 2xl:text-lg"
-                  type="text"
-                  placeholder="Lien de la vidéo"
-                  ref={selectedLink}
+              <form id="inputForm" onSubmit={handleSubmit}>
+                <input
+                  type="file"
+                  name="file"
+                  onChange={handleInputFileChange}
                 />
-              </div>
+              </form>
+
+              <Image
+                src={previewUrl || '/assets/media.png'}
+                alt="preview upload image"
+                width={100}
+                height={60}
+              />
               {error && <div className="w-full text-red-500">{error}</div>}
             </div>
             <DialogFooter className="flex gap-4">
@@ -89,11 +109,11 @@ export default function AddVideo({ tutoId }: AddVideoProps) {
                 Annuler
               </Button>
               <Button
-                onClick={handleSubmit}
-                type="submit"
+                form="inputForm"
+                disabled={!previewUrl}
                 className="my-3 bg-green-500 text-lg w-full lg:w-2/5 lg:my-0"
               >
-                Ajouter
+                {isLoading ? 'Upload...' : 'Ajouter'}
               </Button>
             </DialogFooter>
           </DialogContent>

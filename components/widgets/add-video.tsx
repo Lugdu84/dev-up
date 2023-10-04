@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { addVideo } from '@/actions/tuto'
+import { addVideo } from '@/server/tuto'
 
 type AddVideoProps = {
   tutoId: string
@@ -48,7 +48,7 @@ export default function AddVideo({ tutoId }: AddVideoProps) {
   }
 
   return (
-    <div className="w-full mb-16">
+    <div className="w-full">
       <div className="w-full flex flex-col items-center">
         {/* Ajout vidéo */}
         <Dialog open={open}>
