@@ -64,7 +64,9 @@ export default function FormTuto() {
     if (!hasNoError) {
       return
     }
+    setIsLoading(true)
     await createTuto(newTuto.current)
+    setIsLoading(false)
   }
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
