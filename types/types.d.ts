@@ -22,13 +22,6 @@ export type TUser = {
   name?: string | null | undefined
 }
 
-export type ErrorsTuto = {
-  title: string
-  desc: string
-  tags: string
-  level: string
-}
-
 export type LevelObject = {
   name: Level
   text: string

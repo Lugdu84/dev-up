@@ -19,7 +19,7 @@ import { Textarea } from '../ui/textarea'
 import { Input } from '../ui/input'
 import Checkbox from '@/components/ui/checkbox'
 
-import { ALL_TAGS, ALL_LEVELS } from '@/lib/constants'
+import { ALL_TAGS, ALL_LEVELS, INITIAL_ERROR } from '@/lib/constants'
 import { Label } from '../ui/label'
 import { updateTuto } from '@/server/tuto'
 
@@ -45,13 +45,8 @@ export default function editTutoHeader({
     tags,
   })
   const [open, setOpen] = useState(false)
-  const initialError = {
-    errorTitle: '',
-    errorDescription: '',
-    errorLevels: '',
-    errorTags: '',
-  }
-  const [error, setError] = useState(initialError)
+
+  const [error, setError] = useState(INITIAL_ERROR)
   const [isLoading, setIsLoading] = useState(false)
   const isChecked = (name: string, array: string[]) => {
     const test = array.filter((element) => element === name)
@@ -127,7 +122,7 @@ export default function editTutoHeader({
 
   const handleCancel = () => {
     setOpen(false)
-    setError(initialError)
+    setError(INITIAL_ERROR)
   }
   return (
     <>
