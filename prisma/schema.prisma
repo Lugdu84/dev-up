@@ -64,11 +64,11 @@ model Tutorial {
   author      User      @relation(fields: [authorId], references: [id])
   authorId    String
   title       String
-  level       Level[]
+  levels      Level[]   @default([])
   description String
   image       String?
   video       String?
-  tags        String[]
+  tags        String[]  @default([])
   published   Boolean   @default(false)
   createdAt   DateTime  @default(now())
   publishedAt DateTime?
