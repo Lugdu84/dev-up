@@ -30,16 +30,18 @@ export default async function NewTuto({ params }: NewTutoProps) {
   const { title, video, levels, tags, description, image, id } = tuto
 
   return (
-    <div className="w-full h-screen flex flex-col items-center">
-      <span className="w-11/12 border border-gray-500 my-10" />
-      <div className="w-11/12">
-        <h2 className="w-full text-center text-lg mb-2">Ajouter un média</h2>
-        <AddVideo tutoId={id} />
-        <AddImage tutoId={id} image={image} />
-        <AddText />
+    <div className="w-full flex flex-col items-center">
+      <div className="w-11/12 flex flex-col items-center fixed bg-white z-10 border-b-2 border-black md:w-2/4 lg:w-11/12 lg:flex-row">
+        <h2 className="w-full text-center text-lg my-4">Ajouter un média</h2>
+        {/* Todo: Flex-row fonctionne pas */}
+        <div className="w-full flex flex-col items-center border border-black lg:flex-row">
+          <AddVideo tutoId={id} />
+          <AddImage tutoId={id} image={image} />
+          <AddText />
+        </div>
       </div>
       {/* Preview */}
-      <div className="w-11/12 border p-4 border-black">
+      <div className="w-11/12 border p-4 mt-72 border-black md:w-2/4">
         <div className=" relative">
           <TutoHeader title={title} levels={levels} tags={tags} />
           <div className="absolute right-0 top-6">

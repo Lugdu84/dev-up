@@ -50,11 +50,11 @@ export const createTuto = async (e: FormData) => {
   if (!title) errors = { ...errors, title: 'Veuillez définir un titre' }
   if (!description)
     errors = { ...errors, desc: 'Veuillez définir une descritpion' }
-  const level: Level[] = []
-  if (newbie) level.push(Level.NEWBIE)
-  if (apprentice) level.push(Level.APPRENTICE)
-  if (junior) level.push(Level.JUNIOR)
-  if (!level.length)
+  const levels: Level[] = []
+  if (newbie) levels.push(Level.NEWBIE)
+  if (apprentice) levels.push(Level.APPRENTICE)
+  if (junior) levels.push(Level.JUNIOR)
+  if (!levels.length)
     errors = { ...errors, level: 'Veuillez définir au moins un level' }
   const tags = getTags(e)
   if (!tags.length)
@@ -72,7 +72,7 @@ export const createTuto = async (e: FormData) => {
       title: title as string,
       description: description as string,
       tags,
-      level,
+      levels,
       authorId: user.id,
     },
   })

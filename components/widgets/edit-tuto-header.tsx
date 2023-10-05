@@ -21,6 +21,7 @@ import Checkbox from '@/components/ui/checkbox'
 
 import { ALL_TAGS, ALL_LEVELS } from '@/lib/constants'
 import { Label } from '../ui/label'
+import { updateTuto } from '@/server/tuto'
 
 type EditTutoHeaderProps = {
   title: string
@@ -44,25 +45,28 @@ export default function editTutoHeader({
     tags,
   })
   const [open, setOpen] = useState(false)
-  const [error, setError] = useState({
+  const initialError = {
     errorTitle: '',
     errorDescription: '',
     errorLevels: '',
     errorTags: '',
-  })
+  }
+  const [error, setError] = useState(initialError)
+  const [isLoading, setIsLoading] = useState(false)
   const isChecked = (name: string, array: string[]) => {
     const test = array.filter((element) => element === name)
     return test.length > 0
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const hasNoError = Object.values(error).every((value) => value === '')
-    // si hasError return
-    // si !hasError on envoie tout à la base de donnée
+
     if (!hasNoError) {
       return
     }
-    console.log(hasNoError)
+    setIsLoading(true)
+    await updateTuto(tutoRef.current, id)
+    setIsLoading(false)
     setOpen(false)
   }
 
@@ -121,6 +125,10 @@ export default function editTutoHeader({
     }
   }
 
+  const handleCancel = () => {
+    setOpen(false)
+    setError(initialError)
+  }
   return (
     <>
       <Dialog open={open}>
@@ -131,105 +139,111 @@ export default function editTutoHeader({
         >
           <Pencil size={25} className="mt-2 hover:text-red-500" />
         </DialogTrigger>
-        <DialogContent className="w-11/12">
-          <DialogHeader>
-            <DialogTitle>Modifier les informations</DialogTitle>
-            <DialogDescription>
-              Vous pouvez modifier votre titre, le(s) niveau(x), ainsi que le(s)
-              tag(s)
-            </DialogDescription>
-          </DialogHeader>
-          <div className="w-full grid gap-4 py-4">
-            <div className="w-full">
-              <h2 className="mb-4 text-lg">Votre titre :</h2>
-              <Input
-                name="title"
-                className="w-full 2xl:text-lg"
-                type="text"
-                placeholder="Votre titre"
-                onChange={handleChangeTitle}
-                defaultValue={title}
-              />
-              {error.errorTitle && <div>{error.errorTitle}</div>}
-            </div>
-            <div>
-              <h2 className="mt-6">
-                Votre niveau (plusieurs choix possibles) :
-              </h2>
-              <div className="my-2 p-1 flex flex-col">
-                {ALL_LEVELS.map((level) => (
-                  <div
-                    key={level.name}
-                    className="flex items-center space-x-2 mb-2"
-                  >
-                    <Checkbox
-                      id={level.name}
-                      name={level.name}
-                      defaultChecked={isChecked(level.name, levels)}
-                      onCheckedChange={(checked) =>
-                        handleCheckedLevel(checked, level.name)
-                      }
-                    />
-                    <Label htmlFor={level.name}>{level.name}</Label>
-                  </div>
-                ))}
-                {error.errorLevels && <div>{error.errorLevels}</div>}
-              </div>
-            </div>
-            <div>
-              <h2 className="mt-6">Tags (plusieurs choix possibles) :</h2>
-              <div className="my-2 p-1 flex flex-col">
-                {ALL_TAGS.map((tag) => (
-                  <div
-                    key={tag.name}
-                    className="flex items-center space-x-2  mb-2"
-                  >
-                    <Checkbox
-                      id={tag.name}
-                      name={tag.name}
-                      defaultChecked={isChecked(tag.name, tags)}
-                      onCheckedChange={(checked) =>
-                        handleCheckedTag(checked, tag.name)
-                      }
-                    />
-                    <Label htmlFor={tag.name}>{tag.name}</Label>
-                  </div>
-                ))}
-                {error.errorTags && <div>{error.errorTags}</div>}
-              </div>
-            </div>
-            <div>
-              <h2 className="mt-6">Votre description :</h2>
-              <Textarea
-                name="description"
-                className="w-full mt-6 2xl:text-lg"
-                placeholder="Votre description"
-                onChange={handleChangeDescription}
-                defaultValue={description}
-              />
-              {error.errorDescription && (
-                <div className="border border-red-600">
-                  {error.errorDescription}
+        <DialogContent className="w-11/12 max-h-[600px] overflow-y-auto md:max-h-[800px] lg:max-h-[750px]">
+          {isLoading ? (
+            <div>Updating data ...</div>
+          ) : (
+            <>
+              <DialogHeader>
+                <DialogTitle>Modifier les informations</DialogTitle>
+                <DialogDescription>
+                  Vous pouvez modifier votre titre, le(s) niveau(x), ainsi que
+                  le(s) tag(s)
+                </DialogDescription>
+              </DialogHeader>
+              <div className="w-full grid gap-4 py-4">
+                <div className="w-full">
+                  <h2 className="mb-4 text-lg">Votre titre :</h2>
+                  <Input
+                    name="title"
+                    className="w-full 2xl:text-lg"
+                    type="text"
+                    placeholder="Votre titre"
+                    onChange={handleChangeTitle}
+                    defaultValue={title}
+                  />
+                  {error.errorTitle && <div>{error.errorTitle}</div>}
                 </div>
-              )}
-            </div>
-          </div>
-          <DialogFooter>
-            <Button
-              onClick={() => setOpen(false)}
-              type="button"
-              className="my-3 bg-red-500 text-lg w-full lg:w-2/5 lg:my-0"
-            >
-              Annuler
-            </Button>
-            <Button
-              onClick={handleSubmit}
-              type="button"
-              className="my-3 bg-green-500 text-lg w-full lg:w-2/5 lg:my-0"
-            >
-              Modifier
-            </Button>
-          </DialogFooter>
+                <div>
+                  <h2 className="mt-6">
+                    Votre niveau (plusieurs choix possibles) :
+                  </h2>
+                  <div className="my-2 p-1 flex flex-col">
+                    {ALL_LEVELS.map((level) => (
+                      <div
+                        key={level.name}
+                        className="flex items-center space-x-2 mb-2"
+                      >
+                        <Checkbox
+                          id={level.name}
+                          name={level.name}
+                          defaultChecked={isChecked(level.name, levels)}
+                          onCheckedChange={(checked) =>
+                            handleCheckedLevel(checked, level.name)
+                          }
+                        />
+                        <Label htmlFor={level.name}>{level.name}</Label>
+                      </div>
+                    ))}
+                    {error.errorLevels && <div>{error.errorLevels}</div>}
+                  </div>
+                </div>
+                <div>
+                  <h2 className="mt-6">Tags (plusieurs choix possibles) :</h2>
+                  <div className="my-2 p-1 flex flex-col">
+                    {ALL_TAGS.map((tag) => (
+                      <div
+                        key={tag.name}
+                        className="flex items-center space-x-2  mb-2"
+                      >
+                        <Checkbox
+                          id={tag.name}
+                          name={tag.name}
+                          defaultChecked={isChecked(tag.name, tags)}
+                          onCheckedChange={(checked) =>
+                            handleCheckedTag(checked, tag.name)
+                          }
+                        />
+                        <Label htmlFor={tag.name}>{tag.name}</Label>
+                      </div>
+                    ))}
+                    {error.errorTags && <div>{error.errorTags}</div>}
+                  </div>
+                </div>
+                <div>
+                  <h2 className="mt-6">Votre description :</h2>
+                  <Textarea
+                    name="description"
+                    className="w-full mt-6 2xl:text-lg"
+                    placeholder="Votre description"
+                    onChange={handleChangeDescription}
+                    defaultValue={description}
+                  />
+                  {error.errorDescription && (
+                    <div className="border border-red-600">
+                      {error.errorDescription}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <DialogFooter className="lg:flex lg:justify-center">
+                <Button
+                  onClick={handleCancel}
+                  type="button"
+                  className="my-3 bg-red-500 text-lg w-full lg:w-2/5 lg:my-0"
+                >
+                  Annuler
+                </Button>
+                <Button
+                  onClick={handleSubmit}
+                  type="button"
+                  className="my-3 bg-green-500 text-lg w-full lg:w-2/5 lg:my-0"
+                >
+                  Modifier
+                </Button>
+              </DialogFooter>
+            </>
+          )}
         </DialogContent>
       </Dialog>
     </>
