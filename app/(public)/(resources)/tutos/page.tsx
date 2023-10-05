@@ -8,7 +8,7 @@ import LevelsCheckbox from '@/components/widgets/levels-checkbox'
 
 type whereObject = {
   published: boolean
-  level: {
+  levels: {
     hasSome: Level[]
   }
   tags?: {
@@ -33,7 +33,7 @@ async function getTutos(levels: Level[] | Level, tags: string[] | string) {
 
   const whereObj: whereObject = {
     published: true,
-    level: {
+    levels: {
       hasSome: levelArray || [Level.NEWBIE, Level.APPRENTICE, Level.JUNIOR],
     },
   }
