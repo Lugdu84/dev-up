@@ -106,3 +106,10 @@ export const ALL_LEVELS: LevelObject[] = [
   { name: Level.APPRENTICE, text: ' Apprenant' },
   { name: Level.JUNIOR, text: ' Junior' },
 ]
+
+export const INITIAL_ERROR = {
+  errorTitle: '',
+  errorDescription: '',
+  errorLevels: '',
+  errorTags: '',
+}
