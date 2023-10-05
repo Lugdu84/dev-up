@@ -1,4 +1,4 @@
-import { Level } from '@prisma/client'
+import { Level, Tutorial } from '@prisma/client'
 
 export type TNavLinks = {
   label: string
@@ -33,3 +33,15 @@ export type LevelObject = {
   name: Level
   text: string
 }
+
+export type updatedTuto = Omit<
+  Tutorial,
+  | 'id'
+  | 'createdAt'
+  | 'updatedAt'
+  | 'authorId'
+  | 'published'
+  | 'video'
+  | 'image'
+  | 'publishedAt'
+>

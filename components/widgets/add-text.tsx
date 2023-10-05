@@ -16,7 +16,7 @@ import { Textarea } from '../ui/textarea'
 
 export default function addText() {
   return (
-    <div className="w-full">
+    <div className="w-full md:w-1/2 lg:w-52">
       <Dialog>
         <DialogTrigger className="w-full mb-5" asChild>
           <Button variant="outline">Ajouter du texte</Button>
@@ -28,7 +28,7 @@ export default function addText() {
               Ajouter le contenu de votre article
             </DialogDescription>
           </DialogHeader>
-          <div className="w-full grid gap-4 py-4">
+          <div className="w-full py-4">
             <div className="w-full">
               <Textarea />
             </div>

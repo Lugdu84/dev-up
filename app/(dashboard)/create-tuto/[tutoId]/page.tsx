@@ -27,46 +27,45 @@ export default async function NewTuto({ params }: NewTutoProps) {
   if (!tuto) {
     return <div>error</div>
   }
-  const { title, video, level, tags, description, image, id } = tuto
+  const { title, video, levels, tags, description, image, id } = tuto
 
   return (
-    <div className="w-full h-screen flex flex-col items-center">
-      <span className="w-11/12 border border-gray-500 my-10" />
-      <div className="w-11/12">
-        <h2 className="w-full text-center text-lg mb-2">Ajouter un média</h2>
-        <AddVideo tutoId={id} />
-        <AddImage tutoId={id} image={image} />
+    <div className="w-full flex flex-col items-center">
+      <div className="w-11/12 flex flex-col items-center fixed bg-white z-10 border-b-2 border-black md:w-2/4 lg:w-11/12 lg:flex-row">
+        <h2 className="w-full text-center text-lg my-4">Ajouter un média</h2>
+        {/* Todo: Flex-row fonctionne pas */}
+        <div className="w-full flex flex-col items-center border border-black lg:flex-row">
+          <AddVideo tutoId={id} />
+          <AddImage tutoId={id} image={image} />
+          <AddText />
+        </div>
       </div>
       {/* Preview */}
-      <div className="w-11/12 border p-4 border-black">
-        <TutoHeader title={title} levels={level} tags={tags} />
-        {!video && !image ? (
-          <div className="border border-gray-500 bg-gray-200 h-64 flex flex-col items-center justify-center">
-            <h3 className="mb-8">Votre média</h3>
-            <Image
-              src="/assets/media.png"
-              alt="Un média"
-              width={60}
-              height={60}
-            />
-          </div>
-        ) : (
-          <TutoAsset title={title} video={video} image={image} />
-        )}
-
-        <AddText />
-      </div>
-      <div className="w-11/12 border p-4 border-black">
+      <div className="w-11/12 border p-4 mt-72 border-black md:w-2/4">
         <div className=" relative">
-          <TutoHeader title={title} levels={level} tags={tags} />
+          <TutoHeader title={title} levels={levels} tags={tags} />
           <div className="absolute right-0 top-6">
             <EditTutoHeader
               description={description}
               title={title}
-              levels={level}
+              levels={levels}
               tags={tags}
+              id={id}
             />
           </div>
+          {!video && !image ? (
+            <div className="border border-gray-500 bg-gray-200 h-64 flex flex-col items-center justify-center">
+              <h3 className="mb-8">Votre média</h3>
+              <Image
+                src="/assets/media.png"
+                alt="Un média"
+                width={60}
+                height={60}
+              />
+            </div>
+          ) : (
+            <TutoAsset title={title} video={video} image={image} />
+          )}
         </div>
         <div className="w-full flex flex-col">
           <p className="mt-4">
