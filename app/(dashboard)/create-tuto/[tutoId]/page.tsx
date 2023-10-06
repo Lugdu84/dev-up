@@ -71,6 +71,7 @@ export default async function NewTuto({ params }: NewTutoProps) {
             <TutoAsset title={title} video={video} image={image} />
           )}
         </div>
+
         <div className="w-full flex flex-col">
           <p className="mt-4">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id,

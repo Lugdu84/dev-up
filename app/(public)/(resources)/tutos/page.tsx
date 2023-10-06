@@ -69,7 +69,7 @@ export default async function PageTutos({ searchParams }: PageTutosProps) {
           <h1 className="text-2xl font-semibold tracking-tight">
             TUTORIEL / COURS
           </h1>
-          <Link href="/">
+          <Link href="/create-tuto">
             <Button variant="outline" className="rounded-full">
               Ajouter un tuto !
             </Button>
