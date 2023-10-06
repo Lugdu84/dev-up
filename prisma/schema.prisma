@@ -76,17 +76,19 @@ model Tutorial {
 }
 
 model Content {
-  id          String    @id @default(cuid())
-  tutorial    Tutorial  @relation(fields: [tutorialId], references: [id])
-  tutorialId  String
-  title       String
-  description String
-  image       String?
-  video       String?
-  tags        String[]  @default([])
-  published   Boolean   @default(false)
-  createdAt   DateTime  @default(now())
-  publishedAt DateTime?
+  id         String      @id @default(cuid())
+  tutorial   Tutorial    @relation(fields: [tutorialId], references: [id])
+  tutorialId String
+  content    String
+  type       TypeContent @default(TEXT)
+  position   Int
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now())
+}
+
+enum TypeContent {
+  TEXT
+  CODE
 }
 
 enum Role {
