@@ -18,12 +18,16 @@ type NewTutoProps = {
 const getTuto = async (id: string) => {
   const tuto = await prisma?.tutorial.findUnique({
     where: { id },
+    include: {
+      contents: true,
+    },
   })
   return tuto
 }
 
 export default async function NewTuto({ params }: NewTutoProps) {
   const tuto = await getTuto(params.tutoId)
+  console.log('tuto', tuto)
   if (!tuto) {
     return <div>error</div>
   }
