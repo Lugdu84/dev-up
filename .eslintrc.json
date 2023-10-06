@@ -44,6 +44,7 @@
     "react/jsx-no-useless-fragment": "off",
     "import/no-unresolved": "off",
     "react/require-default-props": "off",
+    "@typescript-eslint/no-inferrable-types": "error",
     "react/jsx-filename-extension": [
       2,
       {
