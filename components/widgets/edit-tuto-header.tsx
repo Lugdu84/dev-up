@@ -31,7 +31,7 @@ type EditTutoHeaderProps = {
   id: string
 }
 
-export default function editTutoHeader({
+export default function EditTutoHeader({
   title,
   description,
   levels,
