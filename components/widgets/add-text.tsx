@@ -30,7 +30,7 @@ export default function addText() {
           </DialogHeader>
           <div className="w-full py-4">
             <div className="w-full">
-              <Textarea />
+              <Textarea required />
             </div>
           </div>
           <DialogFooter>
