@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --watchAll",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
     "postinstall": "prisma db push"
   },
   "dependencies": {
@@ -49,10 +50,9 @@
     "uploadthing": "^5.7.0"
   },
   "devDependencies": {
-    "@jest/globals": "^29.6.4",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
-    "@types/jest": "^29.5.4",
+    "@testing-library/user-event": "^14.5.1",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
     "cypress": "^13.1.0",
@@ -60,14 +60,14 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.14.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-jest": "^27.2.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "jest": "^29.6.4",
-    "jest-environment-jsdom": "^29.5.0",
+    "eslint-plugin-vitest": "^0.3.6",
+    "jsdom": "^22.1.0",
     "prettier": "^3.0.1",
-    "prisma": "^5.2.0"
+    "prisma": "^5.2.0",
+    "vitest": "^0.34.6"
   }
 }
